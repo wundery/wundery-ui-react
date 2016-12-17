@@ -1,0 +1,32 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "env": {
+    "jest": true,
+  },
+  "globals": {
+    "document": false,
+    "window": false,
+  },
+  "rules": {
+    "class-methods-use-this": "off",
+    "max-len": [2, 100, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false
+    }],
+    "react/jsx-filename-extension": "off",
+    "react/forbid-prop-types": "off",
+    "react/no-unused-prop-types": [1, {
+      "skipShapeProps": true
+    }],
+    "jsx-a11y/no-static-element-interactions": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "./docs/webpack.config.js"
+      }
+    },
+    "import/no-mutable-exports": 0
+  }
+}

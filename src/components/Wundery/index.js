@@ -1,0 +1,1 @@
+export WunderyLogo from './WunderyLogo';
