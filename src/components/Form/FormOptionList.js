@@ -7,7 +7,9 @@ function filterListItems(item) {
   return item.type && item.type === FormOptionListItem;
 }
 
-function FormOptionList({ children, name, onChange, value, multiple, title, embedded }) {
+function FormOptionList(props) {
+  const { children, name, onChange, value, multiple, title, embedded, omitOnClick } = props;
+
   const itemOnChange = (data) => {
     if (multiple) {
       onChange({ ...value, ...data });
@@ -29,6 +31,7 @@ function FormOptionList({ children, name, onChange, value, multiple, title, embe
           defaultChecked,
           checkbox: multiple,
           onChange: itemOnChange,
+          omitOnClick,
         };
 
         return <FormOptionListItem {...newProps} />;
@@ -48,6 +51,7 @@ FormOptionList.propTypes = {
   ]),
   multiple: React.PropTypes.bool,
   embedded: React.PropTypes.bool,
+  omitOnClick: React.PropTypes.bool,
 };
 
 export default FormOptionList;

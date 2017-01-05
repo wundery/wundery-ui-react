@@ -2,7 +2,9 @@ import React from 'react';
 import { ListItem } from '../List';
 import { Flex, FlexItem } from '../Flex';
 
-function FormOptionListItem({ children, value, onChange, defaultChecked, checkbox, name }) {
+function FormOptionListItem(props) {
+  const { children, value, onChange, defaultChecked, checkbox, name, omitOnClick } = props;
+
   const onSelect = () => {
     if (checkbox) {
       // Invert the current value
@@ -11,6 +13,8 @@ function FormOptionListItem({ children, value, onChange, defaultChecked, checkbo
       onChange(value);
     }
   };
+
+  const onClick = omitOnClick ? null : onSelect;
 
   const wrappedOnChange = (event) => {
     if (checkbox) {
@@ -44,7 +48,7 @@ function FormOptionListItem({ children, value, onChange, defaultChecked, checkbo
   }
 
   return (
-    <ListItem onClick={onSelect}>
+    <ListItem onClick={onClick}>
       <Flex noPadding noWrap>
         <FlexItem width={40}>
           {renderInput()}
@@ -64,6 +68,7 @@ FormOptionListItem.propTypes = {
   onChange: React.PropTypes.func,
   defaultChecked: React.PropTypes.bool.isRequired,
   checkbox: React.PropTypes.bool,
+  omitOnClick: React.PropTypes.bool,
 };
 
 FormOptionListItem.defaultProps = {
