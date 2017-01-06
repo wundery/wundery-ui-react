@@ -48,9 +48,15 @@ function Tabs({ embedded, children, onChange, active }) {
 
     const builder = get(tab, 'props.builder');
 
+    const buildTabContent = () => {
+      if (builder) { return builder(); }
+
+      return tab.props.children;
+    };
+
     const newProps = { ...tab.props,
       key: index,
-      children: builder(),
+      children: buildTabContent(),
     };
 
     return <Tab {...newProps} />;

@@ -21,13 +21,12 @@ Tab.propTypes = {
   padding: React.PropTypes.bool,
 
   // eslint-disable-next-line react/no-unused-prop-types
-  builder: React.PropTypes.func.isRequired,
+  builder: React.PropTypes.func,
   children: React.PropTypes.node,
 };
 
 Tab.defaultProps = {
   disabled: false,
-  builder: () => {},
 };
 
 export default Tab;
