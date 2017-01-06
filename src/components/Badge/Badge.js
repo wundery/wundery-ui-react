@@ -5,7 +5,9 @@ import { Icon } from '../Icon';
 import { Tooltip } from '../Tooltip';
 import { Spinner } from '../Spinner';
 
-function Badge({ children, margin, padding, state, tooltip, icon, theme, loading }) {
+function Badge(props) {
+  const { children, margin, padding, state, tooltip, icon, theme, loading, label } = props;
+
   const style = spacingStyles({ margin, padding });
   const className = classnames('ui-badge', `ui-badge-${theme || state}`);
 
@@ -19,6 +21,7 @@ function Badge({ children, margin, padding, state, tooltip, icon, theme, loading
 
   const badge = (
     <span style={style} className={className}>
+      {label && <span className="ui-badge-label">{label}</span>}
       {(icon || loading)
         ? renderChildrenWithIcon()
         : children}
@@ -42,6 +45,7 @@ Badge.propTypes = {
   padding: React.PropTypes.string,
   theme: React.PropTypes.oneOf(['success', 'danger', 'default', 'info']).isRequired,
   loading: React.PropTypes.bool,
+  label: React.PropTypes.string,
 };
 
 Badge.defaultProps = {
