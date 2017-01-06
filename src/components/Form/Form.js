@@ -20,7 +20,6 @@ function Form(props) {
   } = props;
 
   let i = 0;
-  let formItemIndex = 0;
 
   /**
    * Called everytime the value of an form item changes
@@ -68,8 +67,6 @@ function Form(props) {
       const { props: childProps, type: ChildType } = child;
 
       if (ChildType === FormItem) {
-        formItemIndex += 1;
-
         const attributeName = child.props.name;
         const newChildProps = Object.assign({}, childProps, {
           onChange: value => onItemValueChanged(attributeName, value),
@@ -84,7 +81,7 @@ function Form(props) {
         // Attribute names can be dot-separated, this is why we use lodash get
         const value = get(data, attributeName, '');
 
-        return <FormItem key={i} tabIndex={formItemIndex} value={value} {...newChildProps} />;
+        return <FormItem key={i} tabIndex={0} value={value} {...newChildProps} />;
       }
 
       const newChildren = searchAndUpdateFormItems(
