@@ -13,6 +13,7 @@ function Form(props) {
     errors,
     inline,
     margin,
+    nativeForm,
     onChange,
     pristine,
     requiredText,
@@ -112,11 +113,13 @@ function Form(props) {
     'ui-form-inline': inline,
   });
 
+  const WrapperType = nativeForm ? 'form' : 'div';
+
   return (
-    <div className={className} style={style}>
+    <WrapperType className={className} style={style}>
       {searchAndUpdateFormItems([].concat(children))}
       {formErrors}
-    </div>
+    </WrapperType>
   );
 }
 
@@ -150,14 +153,18 @@ Form.propTypes = {
 
   // Whether the form should be rendered inline
   inline: React.PropTypes.bool,
+
+  // If true, a native form element will be used as wrapper
+  nativeForm: React.PropTypes.bool,
 };
 
 Form.defaultProps = {
-  errors: [],
-  data: {},
   compact: false,
-  pristine: true,
+  data: {},
   disabled: false,
+  errors: [],
+  nativeForm: false,
+  pristine: true,
 };
 
 export default Form;
