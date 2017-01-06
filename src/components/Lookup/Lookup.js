@@ -1,5 +1,6 @@
 import React from 'react';
 import Mousetrap from 'mousetrap';
+import { isInteger } from 'lodash';
 import { isPromise } from '../../utils';
 import { FormItem } from '../Form';
 import { Dropdown, DropdownItem } from '../Dropdown';
@@ -106,7 +107,9 @@ class Lookup extends React.Component {
   selectFocussed() {
     const { focussedIndex, results } = this.state;
 
-    this.onResultItemClick(results[focussedIndex]);
+    if (isInteger(focussedIndex)) {
+      this.onResultItemClick(results[focussedIndex]);
+    }
   }
 
   cancelLookup() {
