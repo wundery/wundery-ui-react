@@ -68,10 +68,13 @@ class FormItem extends Component {
 
     switch (guard) {
       case 'decimal':
-        return /^$|^-?[0-9,.]+$/;
+        return /^$|^-?[0-9,.]*$/;
 
       case 'number':
         return /^-?[0-9]*$/;
+
+      case 'posNumber':
+        return /^[0-9]*$/;
 
       default:
         return null;
@@ -79,10 +82,10 @@ class FormItem extends Component {
   }
 
   renderErrors() {
-    const { errors } = this.props;
+    const { errors, hideErrorMessage } = this.props;
     const { showErrors } = this.state;
 
-    return errors.length > 0 && showErrors && (
+    return !hideErrorMessage && errors.length > 0 && showErrors && (
       <div className={classnames('ui-form-item-errors')}>
         {errors.map((error, index) => (
           <div key={index} className={classnames('ui-form-error')}>
@@ -242,13 +245,17 @@ class FormItem extends Component {
       addon,
       description,
       dropdown,
+      errors,
       innerAddon,
       prefix,
       spinner,
       suffix,
     } = this.props;
+    const { showErrors } = this.state;
 
-    const className = classnames('ui-form-input');
+    const className = classnames('ui-form-input', {
+      'ui-form-input-with-errors': errors.length > 0 && showErrors,
+    });
 
     const prefixClassName = classnames('ui-form-control-group-prefix', prefix && {
       'ui-form-control-group-content-text': isString(prefix),
@@ -338,6 +345,9 @@ FormItem.propTypes = {
     label: React.PropTypes.string.isRequired,
     value: React.PropTypes.string,
   })),
+
+  // If true, the error message will be hidden
+  hideErrorMessage: React.PropTypes.bool,
 
   // Whether the form should be rendered inline
   inline: React.PropTypes.bool,
