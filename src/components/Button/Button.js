@@ -196,7 +196,7 @@ Button.propTypes = {
   large: React.PropTypes.bool,
   onClick: React.PropTypes.func.isRequired,
   small: React.PropTypes.bool.isRequired,
-  disabled: React.PropTypes.bool.isRequired,
+  disabled: React.PropTypes.bool,
   block: React.PropTypes.bool.isRequired,
   loading: React.PropTypes.bool.isRequired,
   dropdown: React.PropTypes.object,
@@ -207,10 +207,7 @@ Button.propTypes = {
   confirmMessage: React.PropTypes.node,
   link: React.PropTypes.func,
   margin: React.PropTypes.string,
-  tooltip: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.bool,
-  ]),
+  tooltip: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.bool]),
   theme: React.PropTypes.string.isRequired,
   suffixIcon: React.PropTypes.string,
 };
