@@ -1,3 +1,11 @@
+# 5.0.2
+
+This release contains minor improvements and fixes:
+
+* Introduce a disabled prop for button groups
+* Add light badge theme and small prop
+* Add a css class to error fields to visually highlight the fields
+
 # 5.0.1
 
 This release contains minor improvements and fixes:
