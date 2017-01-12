@@ -6,9 +6,95 @@ import TableRow from './TableRow';
 import TableColumn from './TableColumn';
 import { Pagination } from '../Pagination';
 import { Spinner } from '../Spinner';
+import { Icon } from '../Icon';
 import { spacingStyles } from '../Spacing/utils';
 
 class Table extends Component {
+
+  static propTypes = {
+    children: React.PropTypes.node,
+
+    // If this prop is specified, the rows will be inserted at the indexes
+    // represented by the prop keys. Use the key -1 to append lines
+    // at the end. Example:
+    //
+    // {
+    //   3: <TableRow ... />,
+    //   5: [<TableRow ... />, <TableRow ... />],
+    //   -1: <TableRow ... />,
+    // }
+    //
+    // This inserts one row after index 3, two after index 5 and one at the end.
+    customRows: React.PropTypes.object,
+
+    // The actual data which is displayed
+    data: React.PropTypes.array.isRequired,
+
+    // This adds just a class to the table. It says that the table is embedded
+    // into something, e.g. a box. It then can react on that and adjust the style
+    // for example.
+    embedded: React.PropTypes.bool,
+
+    // Something which is displayed in the table footer
+    footer: React.PropTypes.node,
+
+    // A function which return if a given row is highlighted
+    highlighted: React.PropTypes.func,
+
+    // Specifies if the table is in loading mode
+    loading: React.PropTypes.bool,
+
+    onPageSizeChange: React.PropTypes.func,
+    onPaginate: React.PropTypes.func,
+    page: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string,
+    ]),
+    pages: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string,
+    ]),
+    pageSize: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string,
+    ]),
+    pageSizes: React.PropTypes.array,
+    prefix: React.PropTypes.node,
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.bool,
+    ]),
+    addonBuilder: React.PropTypes.func,
+    noHeader: React.PropTypes.bool,
+
+    /**
+     *  If specified, the table columns are drag-and-drop orderable by the user.
+     *  On drag release this callback is invoked and receives the an array containing
+     *  the objects in the new order
+     */
+    onOrder: React.PropTypes.func,
+
+    // If this is specified the table is assumed to be mass-selectable.
+    // For that a column is injected which contains a checkbox.
+    onSelect: React.PropTypes.func,
+
+    // If true, an onRowClickHandler will be set automatically, that selects
+    // the clicked row.
+    selectOnRowClick: React.PropTypes.bool,
+
+    // A function which returns if a specific datum is selected
+    isSelected: React.PropTypes.func,
+
+    margin: React.PropTypes.string,
+    error: React.PropTypes.node,
+    emptyBody: React.PropTypes.func,
+  }
+
+  static defaultProps = {
+    data: [],
+    onOrder: null,
+  }
+
   constructor(props) {
     super(props);
 
@@ -43,6 +129,18 @@ class Table extends Component {
     return typeof this.props.onSelect === 'function';
   }
 
+  isOrderable() {
+    return typeof this.props.onOrder === 'function';
+  }
+
+  bodyRef = (ref) => {
+    if (ref) {
+      if (this.isOrderable()) {
+        // Todo - intialite drag-drop-lib on ref
+      }
+    }
+  }
+
   renderHeaderRow(columns) {
     return (
       <TableRow
@@ -66,9 +164,7 @@ class Table extends Component {
   }
 
   renderDataRows(columns) {
-    const {
-      highlighted, addonBuilder, orderAttribute, onSelect, selectOnRowClick,
-    } = this.props;
+    const { highlighted, addonBuilder, onSelect, selectOnRowClick } = this.props;
 
     const rows = this.props.data.map((datum, index) => {
       const isHighlighted = highlighted ? highlighted(datum) : false;
@@ -85,7 +181,7 @@ class Table extends Component {
           datum={datum}
           highlighted={isHighlighted}
           columns={columns}
-          orderAttribute={orderAttribute}
+
           addon={addon}
           onRowClick={onRowClick}
         />
@@ -113,7 +209,7 @@ class Table extends Component {
     }
 
     return (
-      <div className={classnames('ui-table-body')}>
+      <div className={classnames('ui-table-body')} ref={this.bodyRef}>
         {rowsWithCustomRows}
       </div>
     );
@@ -138,6 +234,17 @@ class Table extends Component {
             />
           );
         }}
+      />
+    );
+  }
+
+  renderOrderColumn() {
+    return (
+      <TableColumn
+        width={50}
+        title={<Icon name="arrows-v" />}
+        builder={() => <Icon name="bars" className="ui-table-drag-handle" />}
+        center
       />
     );
   }
@@ -188,6 +295,11 @@ class Table extends Component {
     // Prepend the checkbox column
     if (this.isSelectable()) {
       columns.unshift(this.renderSelectColumn());
+    }
+
+    // Prepend the order column
+    if (this.isOrderable()) {
+      columns.unshift(this.renderOrderColumn());
     }
 
     return columns;
@@ -312,83 +424,5 @@ class Table extends Component {
     );
   }
 }
-
-Table.propTypes = {
-  children: React.PropTypes.node,
-
-  // If this prop is specified, the rows will be inserted at the indexes
-  // represented by the prop keys. Use the key -1 to append lines
-  // at the end. Example:
-  //
-  // {
-  //   3: <TableRow ... />,
-  //   5: [<TableRow ... />, <TableRow ... />],
-  //   -1: <TableRow ... />,
-  // }
-  //
-  // This inserts one row after index 3, two after index 5 and one at the end.
-  customRows: React.PropTypes.object,
-
-  // The actual data which is displayed
-  data: React.PropTypes.array.isRequired,
-
-  // This adds just a class to the table. It says that the table is embedded
-  // into something, e.g. a box. It then can react on that and adjust the style
-  // for example.
-  embedded: React.PropTypes.bool,
-
-  // Something which is displayed in the table footer
-  footer: React.PropTypes.node,
-
-  // A function which return if a given row is highlighted
-  highlighted: React.PropTypes.func,
-
-  // Specifies if the table is in loading mode
-  loading: React.PropTypes.bool,
-
-  // If this is specified, the rows are drag-and-drop orderable by the user.
-  orderAttribute: React.PropTypes.string,
-  onPageSizeChange: React.PropTypes.func,
-  onPaginate: React.PropTypes.func,
-  page: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
-  pages: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
-  pageSize: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
-  pageSizes: React.PropTypes.array,
-  prefix: React.PropTypes.node,
-  title: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.bool,
-  ]),
-  addonBuilder: React.PropTypes.func,
-  noHeader: React.PropTypes.bool,
-
-  // If this is specified the table is assumed to be mass-selectable.
-  // For that a column is injected which contains a checkbox.
-  onSelect: React.PropTypes.func,
-
-  // If true, an onRowClickHandler will be set automatically, that selects
-  // the clicked row.
-  selectOnRowClick: React.PropTypes.bool,
-
-  // A function which returns if a specific datum is selected
-  isSelected: React.PropTypes.func,
-
-  margin: React.PropTypes.string,
-  error: React.PropTypes.node,
-  emptyBody: React.PropTypes.func,
-};
-
-Table.defaultProps = {
-  data: [],
-};
 
 export default Table;
