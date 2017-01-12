@@ -1,1 +1,1 @@
-export TreeBranch from './TreeBranch';
+export Tree from './Tree';

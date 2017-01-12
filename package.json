@@ -33,7 +33,8 @@
     "mousetrap": "^1.6.0",
     "react-addons-pure-render-mixin": "15.3.0",
     "react-dragula": "1.1.16",
-    "react-prism": "3.2.1"
+    "react-prism": "3.2.1",
+    "react-ui-tree": "https://github.com/fspoettel/react-ui-tree"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
