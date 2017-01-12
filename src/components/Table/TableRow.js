@@ -1,10 +1,6 @@
 import React from 'react';
-
-// Utils
 import classnames from 'classnames';
 import { get } from 'lodash';
-
-// Framework components
 import TableCell from './TableCell';
 
 const determineCellValue = (column, datum, isHeaderRow, index) => {
@@ -77,10 +73,7 @@ const TableRow = (props) => {
   }) : children;
 
   return (
-    <div
-      className={classnames('ui-table-row-wrapper')}
-      data-order-key={get(datum, props.orderAttribute)}
-    >
+    <div className={classnames('ui-table-row-wrapper')}>
       <div
         onClick={onClick}
         className={classnames('ui-table-row', {
@@ -102,7 +95,6 @@ TableRow.propTypes = {
   onRowClick: React.PropTypes.func,
   highlighted: React.PropTypes.bool,
   children: React.PropTypes.node,
-  orderAttribute: React.PropTypes.string,
   addon: React.PropTypes.node,
   index: React.PropTypes.any,
 };
