@@ -13,7 +13,7 @@ TableColumn.propTypes = {
   onSort: React.PropTypes.func,
   orderHandle: React.PropTypes.bool,
   right: React.PropTypes.bool,
-  title: React.PropTypes.string,
+  title: React.PropTypes.node,
   width: React.PropTypes.number,
 };
 
