@@ -1,10 +1,21 @@
+# 5.0.3
+
+This release contains minor improvements and fixes:
+
+* Table: Allow any renderable column title content.
+* Cleanup table row component.
+* New tree component.
+* Introduce closable prop for modals to prevent closing.
+* Add modal size small.
+* Introduce an active prop for filters.
+
 # 5.0.2
 
 This release contains minor improvements and fixes:
 
-* Introduce a disabled prop for button groups
-* Add light badge theme and small prop
-* Add a css class to error fields to visually highlight the fields
+* Introduce a disabled prop for button groups.
+* Add light badge theme and small prop.
+* Add a css class to error fields to visually highlight the fields.
 
 # 5.0.1
 
