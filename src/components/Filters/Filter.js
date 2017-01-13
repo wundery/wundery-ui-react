@@ -2,36 +2,51 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 
 class Filter extends Component {
+
+  static propTypes = {
+    title: React.PropTypes.string.isRequired,
+    onChange: React.PropTypes.func.isRequired,
+    active: React.PropTypes.bool,
+  };
+
+  static defaultProps = {
+    active: false,
+  };
+
   constructor(props) {
     super(props);
 
+    const { active } = this.props;
+
     this.state = {
-      active: false,
+      active,
     };
   }
 
+  onFilterChange = () => {
+    const { onChange } = this.props;
+    const { active } = this.state;
+
+    const nextActive = !active;
+
+    this.setState({ active: nextActive });
+
+    onChange(nextActive);
+  }
+
   render() {
+    const { title } = this.props;
+    const { active } = this.state;
+
     return (
-      <div
-        className={classnames('ui-filter')}
-        onClick={() => {
-          this.setState({
-            active: !this.state.active,
-          }, () => this.props.onChange(this.state.active));
-        }}
-      >
+      <div className={classnames('ui-filter')} onClick={this.onFilterChange}>
         <input
           type="checkbox"
-          checked={this.state.active}
-        /> {this.props.title}
+          checked={active}
+        /> {title}
       </div>
     );
   }
 }
-
-Filter.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-};
 
 export default Filter;
