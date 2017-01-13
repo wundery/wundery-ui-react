@@ -35,7 +35,7 @@ describe('<Form />', () => {
   it('sets tabindexes automatically', () => {
     const tabIndexes = mounted.find('FormItem').map(fi => fi.prop('tabIndex'));
 
-    expect(tabIndexes).toEqual([1, 2]);
+    expect(tabIndexes).toEqual([0, 0]);
   });
 
   it('passes the disabled flag', () => {
