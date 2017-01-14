@@ -111,9 +111,12 @@ function Form(props) {
   });
 
   const WrapperType = nativeForm ? 'form' : 'div';
+  const wrapperProps = nativeForm ? {
+    onSubmit: e => e.preventDefault(),
+  } : {};
 
   return (
-    <WrapperType className={className} style={style}>
+    <WrapperType className={className} style={style} {...wrapperProps}>
       {searchAndUpdateFormItems([].concat(children))}
       {formErrors}
     </WrapperType>
