@@ -1,3 +1,7 @@
+# 5.0.4
+
+* Forms: Fixes a bug that resulted in a native form submit (page redirect).
+
 # 5.0.3
 
 This release contains minor improvements and fixes:
