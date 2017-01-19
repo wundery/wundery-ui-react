@@ -2,10 +2,11 @@ import React from 'react';
 import classnames from 'classnames';
 import { map } from 'lodash';
 
-const FlexItem = ({ children, widths, width, borderRight, grow }) => {
+const FlexItem = ({ children, widths, width, borderRight, borderLeft, grow }) => {
   const style = {};
 
-  const widthClassNames = map(widths,
+  const widthClassNames = map(
+    widths,
     (_width, media) => `ui-flexgrid-item-width-${media}-${_width}`
   );
 
@@ -18,6 +19,7 @@ const FlexItem = ({ children, widths, width, borderRight, grow }) => {
   }
 
   const className = classnames('ui-flexgrid-item', widthClassNames, {
+    'ui-flexgrid-item-border-left': borderLeft,
     'ui-flexgrid-item-border-right': borderRight,
   });
 
@@ -54,6 +56,12 @@ FlexItem.propTypes = {
    * @type {Boolean}
    */
   borderRight: React.PropTypes.bool,
+
+  /**
+   * Specifies whether a left border class should be added
+   * @type {Boolean}
+   */
+  borderLeft: React.PropTypes.bool,
 };
 
 export default FlexItem;
