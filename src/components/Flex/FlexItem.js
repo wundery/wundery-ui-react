@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { map } from 'lodash';
 
-const FlexItem = ({ children, widths, width, borderRight, borderLeft, grow }) => {
+const FlexItem = ({ children, widths, width, borderRight, borderLeft, grow, noShrink }) => {
   const style = {};
 
   const widthClassNames = map(
@@ -14,13 +14,11 @@ const FlexItem = ({ children, widths, width, borderRight, borderLeft, grow }) =>
     style.width = `${width}px`;
   }
 
-  if (grow) {
-    widthClassNames.push('ui-flexgrid-item-grow');
-  }
-
   const className = classnames('ui-flexgrid-item', widthClassNames, {
     'ui-flexgrid-item-border-left': borderLeft,
     'ui-flexgrid-item-border-right': borderRight,
+    'ui-flexgrid-item-grow': grow,
+    'ui-flexgrid-item-no-shrink': noShrink,
   });
 
   return (
@@ -46,6 +44,12 @@ FlexItem.propTypes = {
   grow: React.PropTypes.bool,
 
   /**
+   * Specifies whether the box should not shrink
+   * @type {Boolean}
+   */
+  noShrink: React.PropTypes.bool,
+
+  /**
    * If specified, the item has a fixed pixel-width
    * @type {Integer}
    */
@@ -62,6 +66,16 @@ FlexItem.propTypes = {
    * @type {Boolean}
    */
   borderLeft: React.PropTypes.bool,
+};
+
+FlexItem.defaultProps = {
+  children: null,
+  widths: null,
+  width: null,
+  grow: false,
+  noShrink: false,
+  borderRight: false,
+  borderLeft: false,
 };
 
 export default FlexItem;
