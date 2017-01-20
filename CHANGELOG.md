@@ -1,3 +1,12 @@
+# 5.0.5
+
+This release contains minor improvements and fixes:
+
+* Introduce noShrink prop for flex item component.
+* Introduce compact and image props for list item component.
+* Introduce compact prop for media component.
+* Add a borderLeft prop to flex items.
+
 # 5.0.4
 
 * Forms: Fixes a bug that resulted in a native form submit (page redirect).
