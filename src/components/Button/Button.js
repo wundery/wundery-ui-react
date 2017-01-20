@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import { Tooltip } from '../Tooltip';
 import { Icon } from '../Icon';
 import { Dropdown } from '../Dropdown';
 import { Spinner } from '../Spinner';
@@ -45,54 +44,67 @@ class Button extends Component {
   }
 
   render() {
-    const { tooltip, theme, suffixIcon, iconSize } = this.props;
-    const type = this.props.type;
-    const loading = this.props.loading;
-    const disabled = this.props.disabled || loading;
-    const small = this.props.small;
-    const large = this.props.large;
-    const block = this.props.block;
-    const icon = this.props.icon || (loading ? 'circle-o-notch' : null);
-    const children = this.props.children;
+    const {
+      block,
+      children,
+      className: originalClassName,
+      confirmMessage,
+      description,
+      disabled: originalDisabled,
+      dropdown: originalDropdown,
+      icon: originalIcon,
+      iconSize,
+      large,
+      left,
+      link: originalLInk,
+      loading,
+      margin,
+      onClick: originialOnClick,
+      small,
+      suffixIcon,
+      theme,
+      tooltip,
+      type,
+    } = this.props;
+    const { dropdownOpen } = this.state;
+
+    const disabled = originalDisabled || loading;
+    const icon = originalIcon || (loading ? 'circle-o-notch' : null);
     const iconOnly = !children && icon;
 
     // If a dropdown is given, it must be enhanced with the local
     // open/closed state
-    const dropdown = this.props.dropdown ? (
-      <Dropdown
-        {...Object.assign({}, this.props.dropdown.props, {
-          open: this.state.dropdownOpen,
-          onItemClick: () => {
-            this.setState({ dropdownOpen: false });
-          },
-        })}
-      />
-    ) : null;
+    const newProps = {
+      open: dropdownOpen,
+      onItemClick: () => this.setState({ dropdownOpen: false }),
+    };
+    const dropdownProps = originalDropdown && { ...originalDropdown.props, ...newProps };
+    const dropdown = originalDropdown && <Dropdown {...dropdownProps} />;
 
     // If a dropdown is specified, the onClick can be overwritten
     // to update the state
     const onClick = dropdown ? () => {
-      this.setState({ dropdownOpen: !this.state.dropdownOpen });
-    } : this.props.onClick;
+      this.setState(state => ({ dropdownOpen: !state.dropdownOpen }));
+    } : originialOnClick;
 
     // If an icon name is specified, a prepend must be added
     const prependClassName = classnames('ui-button-prepend', {
       'ui-button-prepend-no-margin': iconOnly,
     });
-    const prepend = icon ? (
+    const prepend = icon && (
       <span className={prependClassName}>
         {loading ? <Spinner /> : <Icon name={icon} size={iconSize} />}
       </span>
-    ) : null;
+    );
 
     // If a dropdown is specified, a append must be specified which
     // displays a caert
-    const append = (dropdown && !icon) || suffixIcon ? (
+    const append = ((dropdown && !icon) || suffixIcon) && (
       <span className={classnames('ui-button-append')}>
         {dropdown && !icon && <Icon name="caret-down" />}
         {suffixIcon && <Icon name={suffixIcon} />}
       </span>
-    ) : null;
+    );
 
     const className = classnames(
       'ui-button',
@@ -102,9 +114,9 @@ class Button extends Component {
         'ui-button-size-block': block,
         'ui-button-state-disabled': disabled,
         'ui-button-state-loading': loading,
-        'ui-button-left': this.props.left,
+        'ui-button-left': left,
       },
-      this.props.className,
+      originalClassName,
     );
 
     const onClickWrapper = (event) => {
@@ -115,9 +127,9 @@ class Button extends Component {
         onClick(event);
       };
 
-      if (this.props.confirmMessage) {
+      if (confirmMessage) {
         // eslint-disable-next-line
-        if (window.confirm(this.props.confirmMessage)) {
+        if (window.confirm(confirmMessage)) {
           return performOnClick();
         }
 
@@ -127,35 +139,31 @@ class Button extends Component {
       return performOnClick();
     };
 
-    let inner = (
+    const inner = (
       <span className={classnames('ui-button-inner')}>
         {prepend}
-        {children
-          ? (<span className={classnames('ui-button-content')}>
+        {children && (
+          <span className={classnames('ui-button-content')}>
             {children}
-            {this.props.description
-              ? (<span className={classnames('ui-button-description')}>
-                {this.props.description}
-              </span>)
-              : null}
-          </span>)
-          : null}
+            {description && (
+              <span className={classnames('ui-button-description')}>
+                {description}
+              </span>
+            )}
+          </span>
+        )}
         {append}
       </span>
     );
 
-    if (tooltip) {
-      inner = <Tooltip content={tooltip}>{inner}</Tooltip>;
-    }
-
-    const margin = this.props.margin;
     const style = spacingStyles({ margin });
 
-    let link = this.props.link;
+    let link = originalLInk;
     if (link) {
       link = link(inner);
       const LinkType = link.type;
-      link = <LinkType {...Object.assign({}, link.props, { className })} style={style} />;
+      const linkProps = { ...link.props, ...{ className } };
+      link = <LinkType {...linkProps} style={style} />;
     }
 
     const button = link || (
@@ -171,20 +179,22 @@ class Button extends Component {
       </button>
     );
 
+    const dropdownClassName = classnames('ui-dropdown-wrapper', {
+      'ui-dropdown-wrapper-block': block,
+    });
 
-    const buttonWrapper = dropdown ? (
-      <div
-        ref={node => (this.dropdownWrapper = node)}
-        className={classnames('ui-dropdown-wrapper', {
-          'ui-dropdown-wrapper-block': block,
-        })}
-      >
-        {button}
-        {dropdown}
-      </div>
-    ) : button;
+    const ref = node => (this.dropdownWrapper = node);
 
-    return buttonWrapper;
+    if (dropdown) {
+      return (
+        <div ref={ref} className={dropdownClassName}>
+          {button}
+          {dropdown}
+        </div>
+      );
+    }
+
+    return button;
   }
 }
 
