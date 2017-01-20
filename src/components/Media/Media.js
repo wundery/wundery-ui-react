@@ -1,11 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const Media = (props) => {
-  const children = props.children;
+const Media = ({ compact, children }) => {
+  const className = classnames('ui-media', {
+    'ui-media-compact': compact,
+  });
 
   return (
-    <div className={classnames('ui-media')}>
+    <div className={className}>
       {children}
     </div>
   );
@@ -13,6 +15,12 @@ const Media = (props) => {
 
 Media.propTypes = {
   children: React.PropTypes.node,
+  compact: React.PropTypes.bool,
+};
+
+Media.defaultProps = {
+  compact: false,
+  children: null,
 };
 
 export default Media;
