@@ -8,13 +8,13 @@ class Tree extends React.Component {
     // Additional React element that will be prepended to the tree
     addon: React.PropTypes.node,
     // Expects an array of objects
-    data: React.PropTypes.array.isRequired,
+    // data: React.PropTypes.array.isRequired,
     // Function that takes a node and renders it
     itemBuilder: React.PropTypes.func.isRequired,
     // Loading state
     loading: React.PropTypes.bool,
     // Max-depth of the tree
-    maxDepth: React.PropTypes.number,
+    // maxDepth: React.PropTypes.number,
     // The name of the tree
     name: React.PropTypes.string.isRequired,
     // Triggered when the tree component changes
