@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import ReactTooltip from 'react-tooltip';
-import { spacing } from '../../utils';
+import { randomString, spacing } from '../../utils';
 import { Icon } from '../Icon';
 import { Dropdown } from '../Dropdown';
 import { Spinner } from '../Spinner';
@@ -9,6 +9,8 @@ import { Spinner } from '../Spinner';
 class Button extends Component {
   constructor(props) {
     super(props);
+
+    this.id = randomString(10);
 
     this.state = {
       // Tracks the open state of the dropdown
@@ -180,7 +182,7 @@ class Button extends Component {
       link = <LinkType {...linkProps} style={style} title={tooltip} />;
     }
 
-    const id = `button-${Date.now()}`;
+    const id = `button-${this.id}`;
 
     const button = link || (
       <button

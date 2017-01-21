@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import ReactTooltip from 'react-tooltip';
+import { randomString } from '../../utils';
 import { spacingStyles } from '../Spacing/utils';
 import { Icon } from '../Icon';
 import { Spinner } from '../Spinner';
@@ -35,7 +36,7 @@ function Badge(props) {
     return <span><Spinner /> {children}</span>;
   }
 
-  const id = `button-${Date.now()}`;
+  const id = `button-${randomString(10)}`;
 
   const badge = (
     <span
