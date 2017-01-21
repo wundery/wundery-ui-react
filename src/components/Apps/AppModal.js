@@ -1,11 +1,12 @@
 import React from 'react';
+import { AppIcon } from '../Apps';
+import { Button } from '../Button';
+import { Headline } from '../Headline';
+import { Media, MediaIcon, MediaContent } from '../Media';
 import { Modal, ModalContent, ModalHeader } from '../Modal';
 import { Text } from '../Text';
-import { Headline } from '../Headline';
-import { AppIcon } from '../Apps';
-import { Media, MediaIcon, MediaContent } from '../Media';
 
-function AppModal({ title, description, children, open, onClose, iconSrc }) {
+function AppModal({ title, description, children, open, onClose, iconSrc, closeLabel }) {
   return (
     <Modal open={open} onClose={onClose}>
       <ModalHeader>
@@ -17,6 +18,7 @@ function AppModal({ title, description, children, open, onClose, iconSrc }) {
             <Text muted block margin="1xt">
               {description}
             </Text>
+            {closeLabel && <Button margin="1xt" onClick={onClose}>{closeLabel}</Button>}
           </MediaContent>
           <MediaIcon>
             <AppIcon src={iconSrc} />
@@ -31,12 +33,17 @@ function AppModal({ title, description, children, open, onClose, iconSrc }) {
 }
 
 AppModal.propTypes = {
-  title: React.PropTypes.string,
-  description: React.PropTypes.string,
   children: React.PropTypes.any,
+  closeLabel: React.PropTypes.string,
+  description: React.PropTypes.string,
+  iconSrc: React.PropTypes.string,
   onClose: React.PropTypes.func.isRequired,
   open: React.PropTypes.bool,
-  iconSrc: React.PropTypes.string,
+  title: React.PropTypes.string,
+};
+
+AppModal.defaultProps = {
+  closeLabel: null,
 };
 
 export default AppModal;
