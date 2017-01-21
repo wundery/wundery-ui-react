@@ -1,41 +1,53 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import ReactTooltip from 'react-tooltip';
+import { spacing } from '../../utils';
 import { Icon } from '../Icon';
 import { Dropdown } from '../Dropdown';
 import { Spinner } from '../Spinner';
-import { spacingStyles } from '../Spacing/utils';
 
 class Button extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // Tracks the open state of the dropdown
+      dropdownOpen: false,
+    };
+  }
 
   componentWillMount() {
-    // We just bind this once to be able to remove the event listener later
-    // (.bind returns a new function)
-    this.boundHandleDocumentClick = this.handleDocumentClick.bind(this);
-
-    this.setState({
-      dropdownOpen: false,
-    });
+    const { dropdown } = this.props;
 
     // If the button should open a dropdown, we register a handler that
     // listens to all clicks on the document.
-    if (this.props.dropdown) {
-      document.addEventListener('click', this.boundHandleDocumentClick, true);
+    if (dropdown) {
+      document.addEventListener('click', this.handleDocumentClick, true);
     }
   }
+
 
   componentWillUnmount() {
+    const { dropdown } = this.props;
+
     // Remove the event listener
-    if (this.props.dropdown) {
-      document.removeEventListener(
-        'click', this.boundHandleDocumentClick, true
-      );
+    if (dropdown) {
+      document.removeEventListener('click', this.handleDocumentClick, true);
     }
   }
 
-  // This checks whether the clicked event target is a child of
-  // the dropdown wrapper. If not it is considered to be an outside click
-  // and closes the dropdown.
-  handleDocumentClick(event) {
+  setDropdownRef = (element) => {
+    if (element) {
+      this.dropdownWrapper = element;
+    }
+  }
+
+  /**
+   * This checks whether the clicked event target is a child of
+   * the dropdown wrapper. If not it is considered to be an outside click
+   * and closes the dropdown.
+   */
+  handleDocumentClick = (event) => {
     if (!this.dropdownWrapper.contains(event.target)) {
       this.setState({
         dropdownOpen: false,
@@ -120,6 +132,8 @@ class Button extends Component {
     );
 
     const onClickWrapper = (event) => {
+      if (disabled) { return false; }
+
       const performOnClick = () => {
         // we stop event propagation to ensure that other components
         // do not receive this onClick as an onClick.
@@ -156,26 +170,34 @@ class Button extends Component {
       </span>
     );
 
-    const style = spacingStyles({ margin });
+    const style = spacing({ margin });
 
     let link = originalLInk;
     if (link) {
       link = link(inner);
       const LinkType = link.type;
       const linkProps = { ...link.props, ...{ className } };
-      link = <LinkType {...linkProps} style={style} />;
+      link = <LinkType {...linkProps} style={style} title={tooltip} />;
     }
+
+    const id = `button-${Date.now()}`;
 
     const button = link || (
       <button
         type={type}
         onClick={onClickWrapper}
         className={className}
-        disabled={disabled}
         value={this.props.value}
         style={style}
+        data-tip
+        data-for={id}
       >
         {inner}
+        {tooltip && (
+          <ReactTooltip effect="solid" id={id}>
+            {tooltip}
+          </ReactTooltip>
+        )}
       </button>
     );
 
@@ -183,11 +205,9 @@ class Button extends Component {
       'ui-dropdown-wrapper-block': block,
     });
 
-    const ref = node => (this.dropdownWrapper = node);
-
     if (dropdown) {
       return (
-        <div ref={ref} className={dropdownClassName}>
+        <div ref={this.setDropdownRef} className={dropdownClassName}>
           {button}
           {dropdown}
         </div>
