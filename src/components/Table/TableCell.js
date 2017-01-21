@@ -13,7 +13,9 @@ class TableCell extends Component {
       sorted: false,
     };
   }
+
   render() {
+    const { title } = this.props;
     const isCopyable = this.props.copyable;
     const value = this.props.value;
     const width = this.props.width;
@@ -68,19 +70,22 @@ class TableCell extends Component {
       )
       : null;
 
+    const className = classnames('ui-table-cell', {
+      'ui-table-cell-bold': isBold,
+      'ui-table-cell-right': this.props.right,
+      'ui-table-cell-center': this.props.center,
+      'ui-table-cell-order-handle': this.props.orderHandle,
+    });
 
     return (
-      <div
-        className={classnames('ui-table-cell', {
-          'ui-table-cell-bold': isBold,
-          'ui-table-cell-right': this.props.right,
-          'ui-table-cell-center': this.props.center,
-          'ui-table-cell-order-handle': this.props.orderHandle,
-        })}
-        style={styles}
-      >
-        <div className={classnames('ui-table-cell-content')}>
-          <span className={classnames('ui-table-cell-text')}>
+      <div className={className} style={styles}>
+        {title && (
+          <div className="ui-table-cell-title">
+            {title}
+          </div>
+        )}
+        <div className="ui-table-cell-content">
+          <span className="ui-table-cell-text">
             {icon}
             {content}
           </span>
@@ -99,8 +104,13 @@ TableCell.propTypes = {
   onSort: React.PropTypes.func,
   orderHandle: React.PropTypes.bool,
   right: React.PropTypes.bool,
+  title: React.PropTypes.string,
   value: React.PropTypes.node,
   width: React.PropTypes.number,
+};
+
+TableCell.defaultProps = {
+  header: null,
 };
 
 export default TableCell;

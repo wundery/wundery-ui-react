@@ -54,7 +54,17 @@ const TableRow = (props) => {
 
   // Build the cells
   const cells = columns ? columns.map((column, columnIndex) => {
-    const { bold, orderHandle, copyable, width, onSort, right, center, icon } = column.props;
+    const {
+      bold,
+      center,
+      copyable,
+      icon,
+      onSort,
+      orderHandle,
+      right,
+      title,
+      width,
+    } = column.props;
 
     return (
       <TableCell
@@ -67,6 +77,7 @@ const TableRow = (props) => {
         right={right}
         center={center}
         orderHandle={orderHandle}
+        title={title}
         icon={isHeaderRow ? icon : null}
       />
     );
