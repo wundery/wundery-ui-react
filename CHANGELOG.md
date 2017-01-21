@@ -1,3 +1,12 @@
+# 5.0.6
+
+This release contains minor improvements and fixes:
+
+* Support tooltips in badges.
+* Add react tooltip dependency.
+* Refactor button component and support tooltips.
+* Enhance nav component and introduce prefix prop.
+
 # 5.0.5
 
 This release contains minor improvements and fixes:
