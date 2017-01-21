@@ -1,3 +1,15 @@
+# 5.0.7
+
+This release contains minor improvements and fixes:
+
+* Use random string for button ids.
+* Utils: Add random string generator.
+* Table: Add responsive helper markup.
+* Sidebar: add responsive helper markup.
+* Modal: Add body class when open.
+* Inline list: Introduce block prop.
+* App modal: Introduce closeLabel prop.
+
 # 5.0.6
 
 This release contains minor improvements and fixes:
