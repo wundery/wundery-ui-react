@@ -34,6 +34,7 @@
     "react-addons-pure-render-mixin": "15.3.0",
     "react-dragula": "1.1.16",
     "react-prism": "3.2.1",
+    "react-tooltip": "^3.2.2",
     "react-ui-tree": "git+https://git@github.com/fspoettel/react-ui-tree.git"
   },
   "devDependencies": {

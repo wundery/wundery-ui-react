@@ -1278,7 +1278,7 @@ circular-json@^0.3.0:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
 
-classnames@2.2.5, classnames@^2.2.5:
+classnames@2.2.5, classnames@^2.2.0, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -4208,6 +4208,12 @@ react-dragula@1.1.16:
 react-prism@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/react-prism/-/react-prism-3.2.1.tgz#e9e380092275cf013074bf9dc900dce9a7149754"
+
+react-tooltip@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-3.2.2.tgz#3a599c0eabbd9eb9597aa2d72b217fd7ba358767"
+  dependencies:
+    classnames "^2.2.0"
 
 "react-ui-tree@git+https://git@github.com/fspoettel/react-ui-tree.git":
   version "2.6.0"
