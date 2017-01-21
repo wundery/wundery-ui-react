@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
+import ReactTooltip from 'react-tooltip';
 import { spacingStyles } from '../Spacing/utils';
 import { Icon } from '../Icon';
-import { Tooltip } from '../Tooltip';
 import { Spinner } from '../Spinner';
 
 function Badge(props) {
@@ -35,18 +35,28 @@ function Badge(props) {
     return <span><Spinner /> {children}</span>;
   }
 
+  const id = `button-${Date.now()}`;
+
   const badge = (
-    <span style={style} className={className}>
+    <span
+      style={style}
+      className={className}
+      data-tip
+      data-for={id}
+    >
       {label && <span className="ui-badge-label">{label}</span>}
       {(icon || loading)
         ? renderChildrenWithIcon()
         : children}
+      {tooltip && (
+        <ReactTooltip effect="solid" id={id}>
+          {tooltip}
+        </ReactTooltip>
+      )}
     </span>
   );
 
-  return tooltip
-    ? <Tooltip content={tooltip}>{badge}</Tooltip>
-    : badge;
+  return badge;
 }
 
 Badge.propTypes = {
