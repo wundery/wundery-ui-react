@@ -3,6 +3,8 @@ import classnames from 'classnames';
 
 class Modal extends Component {
 
+  static bodyClassName = 'ui-modal-attached';
+
   /**
    * Prop types
    * @type {Object}
@@ -46,15 +48,43 @@ class Modal extends Component {
   }
 
   componentDidMount() {
+    const { open } = this.state;
+
     document.addEventListener('click', this.handleDocumentClick, true);
+
+    this.setBodyClass(open);
   }
 
   componentWillReceiveProps({ open }) {
     this.setState({ open });
+    this.setBodyClass(open);
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleDocumentClick, true);
+    this.removeBodyClass();
+  }
+
+  setBodyClass(isOpen) {
+    if (isOpen) {
+      this.addBodyClass();
+    } else {
+      this.removeBodyClass();
+    }
+  }
+
+  setModalRef = (element) => {
+    if (element) {
+      this.modal = element;
+    }
+  }
+
+  addBodyClass() {
+    document.getElementsByTagName('body')[0].classList.add(Modal.bodyClassName);
+  }
+
+  removeBodyClass() {
+    document.getElementsByTagName('body')[0].classList.remove(Modal.bodyClassName);
   }
 
   handleDocumentClick = (event) => {
@@ -68,8 +98,6 @@ class Modal extends Component {
     }
   }
 
-  modalRef = node => (this.modal = node);
-
   render() {
     const { children, size } = this.props;
     const { open } = this.state;
@@ -82,7 +110,7 @@ class Modal extends Component {
     return (
       <div className={wrapperClassName}>
         <div className={classnames('ui-modal-backdrop')} />
-        <div ref={this.modalRef} className={modalClassName}>
+        <div ref={this.setModalRef} className={modalClassName}>
           {children}
         </div>
       </div>
