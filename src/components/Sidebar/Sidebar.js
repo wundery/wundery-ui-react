@@ -7,12 +7,13 @@ class Sidebar extends React.Component {
   static propTypes = {
     children: React.PropTypes.node,
     embedded: React.PropTypes.bool,
-    expandLabel: React.PropTypes.string.isRequired,
+    expandLabel: React.PropTypes.string,
   };
 
   static defaultProps = {
     children: null,
     embedded: false,
+    expandLabel: null,
   };
 
   constructor(props) {
@@ -40,12 +41,14 @@ class Sidebar extends React.Component {
 
     return (
       <div className={className}>
-        <div className="ui-sidebar-expand-wrapper">
-          <button onClick={this.onExpandClick}>
-            <Icon name="bars" />
-            {expandLabel}
-          </button>
-        </div>
+        {expandLabel && (
+          <div className="ui-sidebar-expand-wrapper">
+            <button onClick={this.onExpandClick}>
+              <Icon name="bars" />
+              {expandLabel}
+            </button>
+          </div>
+        )}
         <div className="ui-sidebar-items">
           {children}
         </div>
