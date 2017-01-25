@@ -85,7 +85,7 @@ function App(props) {
           </div>
         )}
       </div>
-      <div className="ui-app-footer">
+      <div className="ui-app-footer" onClick={e => e.stopPropagation()}>
         <div className="ui-app-actions">
           <div className="ui-app-buttons">
             {renderButtons()}
