@@ -1,3 +1,12 @@
+# 5.0.8
+
+This release contains minor improvements and fixes:
+
+* Thumbnail: introduce inline prop.
+* Sidebar: make expandedLabel prop optional.
+* Add correct tooltips to flags.
+* Bugfix: Stop event propagation on app footer click.
+
 # 5.0.7
 
 This release contains minor improvements and fixes:
