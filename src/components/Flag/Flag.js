@@ -1,10 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
+import ReactTooltip from 'react-tooltip';
+import { randomString } from '../../utils';
 import { spacingStyles } from '../Spacing/utils';
-import { Tooltip } from '../Tooltip';
 
 function Flag(props) {
-  const { margin, tooltip: tooltipText, code, text } = props;
+  const { margin, tooltip, code, text } = props;
 
   const styles = margin
     ? spacingStyles({ margin })
@@ -15,30 +16,43 @@ function Flag(props) {
     `ui-flag-${String(code).toLowerCase()}`
   );
 
+  const id = `flag-${randomString(10)}`;
+
   const flag = <span className={className} />;
 
+  const tooltpMarkup = tooltip && (
+    <ReactTooltip effect="solid" id={id}>
+      {tooltip}
+    </ReactTooltip>
+  );
+
   const flagWithText = text && (
-    <span className={classnames('ui-flag-wrapper')} style={styles}>
+    <span
+      className={classnames('ui-flag-wrapper')}
+      style={styles}
+      data-tip
+      data-for={id}
+    >
       {flag}
       {props.text}
+      {tooltpMarkup}
     </span>
   );
 
-  const flagOnly = !text && <span style={styles}>{flag}</span>;
-
-  const flagWrapper = text
-    ? flagWithText
-    : flagOnly;
-
-  const tooltip = tooltipText && (
-    <Tooltip content={tooltipText}>
-      {flagWrapper}
-    </Tooltip>
+  const flagOnly = !text && (
+    <span
+      style={styles}
+      data-tip
+      data-for={id}
+    >
+      {flag}
+      {tooltpMarkup}
+    </span>
   );
 
-  return tooltipText
-    ? tooltip
-    : flagWrapper;
+  return text
+    ? flagWithText
+    : flagOnly;
 }
 
 Flag.propTypes = {
