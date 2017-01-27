@@ -5,7 +5,7 @@ import { Progress } from '../Progress';
 import { Icon } from '../Icon';
 
 function GalleryItem(props) {
-  const { addon, onClick, progress, ribbon, small, src } = props;
+  const { addon, onClick, progress, ribbon, small, src, highlighted } = props;
 
   const style = { backgroundImage: `url("${src}")` };
   const linkClassName = classnames('ui-gallery-item', {
@@ -14,6 +14,7 @@ function GalleryItem(props) {
 
   const className = classnames('ui-gallery-item-wrapper', {
     'ui-gallery-item-wrapper-size-small': small,
+    'ui-gallery-item-highlighted': highlighted,
   });
 
   return (
@@ -70,7 +71,19 @@ GalleryItem.propTypes = {
     React.PropTypes.string,
     React.PropTypes.bool,
   ]),
+
+  // Specifies whether the item is highlighted, e.g. has a special border color
+  highlighted: React.PropTypes.bool,
 };
 
+GalleryItem.defaultProps = {
+  addon: null,
+  highlighted: false,
+  onClick: null,
+  progress: null,
+  ribbon: null,
+  small: false,
+  src: null,
+};
 
 export default GalleryItem;
