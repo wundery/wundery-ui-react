@@ -13,6 +13,7 @@ function Box(props) {
     centeredLabel,
     children,
     content,
+    embedded,
     icon,
     intro,
     label,
@@ -31,6 +32,7 @@ function Box(props) {
     {
       'ui-box-borderless': borderless,
       'ui-box-clickable': isFunction(onClick),
+      'ui-box-embedded': embedded,
     });
 
   function renderRibbon() {
@@ -69,6 +71,7 @@ Box.propTypes = {
   centeredLabel: React.PropTypes.bool,
   children: React.PropTypes.node,
   content: React.PropTypes.node,
+  embedded: React.PropTypes.bool,
   icon: React.PropTypes.string,
   intro: React.PropTypes.node,
   label: React.PropTypes.string,
@@ -82,6 +85,7 @@ Box.propTypes = {
 
 Box.defaultProps = {
   theme: 'default',
+  embedded: false,
 };
 
 export default Box;
