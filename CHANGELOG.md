@@ -1,3 +1,7 @@
+# 5.0.10
+
+* New (temporary) tree implementation.
+
 # 5.0.9
 
 This release contains minor improvements and fixes:
