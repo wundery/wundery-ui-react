@@ -74,14 +74,23 @@ function Form(props) {
           pristine,
           disabled,
           requiredText,
-          compact,
           inline,
         });
+
+        const childCompact = childProps.compact || compact;
 
         // Attribute names can be dot-separated, this is why we use lodash get
         const value = get(data, attributeName, '');
 
-        return <FormItem key={i} tabIndex={0} value={value} {...newChildProps} />;
+        return (
+          <FormItem
+            key={i}
+            tabIndex={0}
+            value={value}
+            compact={childCompact}
+            {...newChildProps}
+          />
+        );
       }
 
       const newChildren = searchAndUpdateFormItems(
