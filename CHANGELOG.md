@@ -1,3 +1,12 @@
+# 5.0.9
+
+This release contains minor improvements and fixes:
+
+* Gallery: Introduce highlighted prop for items.
+* Forms: Don't override compact prop if form items.
+* Button: Introduce highlight prop.
+* Box: Introduce embedded prop.
+
 # 5.0.8
 
 This release contains minor improvements and fixes:
