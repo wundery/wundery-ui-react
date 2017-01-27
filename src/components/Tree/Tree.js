@@ -1,138 +1,90 @@
 import React from 'react';
-import UiTree from 'react-ui-tree';
-import { Spinner } from '../Spinner';
-import dataToTree from './utils/dataToTree';
+import TreeItem from './TreeItem';
 
 class Tree extends React.Component {
   static propTypes = {
-    // Additional React element that will be prepended to the tree
-    addon: React.PropTypes.node,
-    // Expects an array of objects
-    // data: React.PropTypes.array.isRequired,
-    // Function that takes a node and renders it
-    itemBuilder: React.PropTypes.func.isRequired,
-    // Loading state
-    loading: React.PropTypes.bool,
-    // Max-depth of the tree
-    // maxDepth: React.PropTypes.number,
-    // The name of the tree
-    name: React.PropTypes.string.isRequired,
-    // Triggered when the tree component changes
-    onChange: React.PropTypes.func.isRequired,
-  }
+    // Tree data, see docs
+    data: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+    ]),
+
+    // Triggered on item click
+    onItemClick: React.PropTypes.func.isRequired,
+
+    // Rendered on each level once
+    levelPrefix: React.PropTypes.func,
+
+    // maximum tree depth
+    maxDepth: React.PropTypes.number,
+
+    // Rendered on each item
+    itemAddon: React.PropTypes.func,
+
+    // Func that returns a boolean value indicating if a node should be highlighted
+    highlighted: React.PropTypes.func,
+  };
 
   static defaultProps = {
-    data: [],
-    maxDepth: 2,
-  }
+    levelPrefix: null,
+    maxDepth: null,
+    highlighted: null,
+  };
 
   constructor(props) {
     super(props);
 
-    this.state = this.getTreeFromProps(this.props);
-  }
+    const { data } = props;
 
-  componentWillReceiveProps(nextProps) {
-    const nextState = this.getTreeFromProps(nextProps);
-    this.setState(nextState);
-  }
-
-  /**
-   * Tree callback
-   * @param  {Object} tree   Current tree
-   * @param  {Object} parent New parent of moved node
-   * @param  {Object} node   Moved node
-   */
-  onTreeChange = (tree, parent, node) => {
-    const { onChange } = this.props;
-    const { mapping } = this.state;
-
-    const nodeObj = mapping.get(node.data.path.join('.'));
-    const parentObj = mapping.get(parent.data.path.join('.'));
-
-    const parentItems = parent.children.map(c => c.data.id);
-
-    onChange(nodeObj, parentObj, parentItems);
-  }
-
-  /**
-   * Transforms data passed into the component to a tree
-   * @param {Array}   Array of data
-   * @return {Object} Tree and tree -> data mapping
-   */
-  getTreeFromProps(nextProps) {
-    const { data, maxDepth, name } = nextProps;
-
-    const transformedData = dataToTree(data, { maxDepth, name });
-    const nextTree = transformedData[0];
-    const nextMapping = transformedData[1];
-
-    return {
-      tree: nextTree,
-      mapping: nextMapping,
+    this.state = {
+      data,
     };
   }
 
-  /**
-   * Checks if a node is collapsed
-   * @param {Object} node   a single node from the tree
-   * @return {Boolean}      whether a node should be collapsed
-   */
-  treeNodeIsCollapsed(node) {
-    return node.collapsed;
+  componentWillReceiveProps({ data }) {
+    this.setState({ data });
   }
 
-  /**
-   * Calls props.itemBuilder with the object belonging to the current tree node
-   * @param  {Object} node Tree node
-   * @return {Object}      Data object
-   */
-  treeNodeBuilder = (node) => {
-    const { itemBuilder, name } = this.props;
-    const { mapping } = this.state;
-    const path = node.data.path;
-
-    const categoryObj = mapping.get(path.join('.'));
-    const isRoot = categoryObj.id === 'root';
-
-    let returning = {};
-
-    if (isRoot) {
-      returning = { ...categoryObj, title: name };
-    } else {
-      returning = categoryObj;
-    }
-
-    return itemBuilder(returning, isRoot);
-  }
-
-  renderTree() {
-    const { tree } = this.state;
+  renderNode = (node, index) => {
+    const { onItemClick, levelPrefix, maxDepth, itemAddon, highlighted } = this.props;
+    const { childs, depth, expanded, label } = node;
 
     return (
-      <UiTree
-        paddingLeft={20}
-        isNodeCollapsed={Tree.isNodeCollapsed}
-        tree={tree}
-        renderNode={this.treeNodeBuilder}
-        onChange={this.onTreeChange}
+      <TreeItem
+        label={label}
+        depth={depth}
+        key={index}
+        expanded={expanded}
+        childs={childs}
+        onClick={onItemClick}
+        node={node}
+        levelPrefix={levelPrefix}
+        maxDepth={maxDepth}
+        itemAddon={itemAddon}
+        highlighted={highlighted}
       />
     );
   }
 
-  renderLoading() {
-    return (<Spinner />);
+  renderLevelPrefix() {
+    const { levelPrefix } = this.props;
+
+    if (levelPrefix) {
+      return levelPrefix(null, 0);
+    }
+
+    return null;
   }
 
   render() {
-    const { addon, loading } = this.props;
+    const { data } = this.state;
+
+    const nodes = [].concat(data);
 
     return (
-      <div className="tree-container">
-        {addon && <div className="tree-addon">{addon}</div>}
-        <div className="tree">
-          {loading ? this.renderLoading() : this.renderTree()}
-        </div>
+      <div className="ui-tree">
+        {this.renderLevelPrefix()}
+        {nodes.map(this.renderNode)}
       </div>
     );
   }
