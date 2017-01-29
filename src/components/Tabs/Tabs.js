@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { find, get, isNull } from 'lodash';
+import { merge } from '../../utils';
 import Tab from './Tab';
 import { Icon } from '../Icon';
 import { Badge } from '../Badge';
@@ -21,7 +22,7 @@ class Tabs extends Component {
       .map((child, index) => (
         <Tab
           key={index}
-          {...Object.assign({}, child.props, {
+          {...merge(child.props, {
             active: child.props.active ||
               child.props.name === this.props.active,
             onSelect: () => {

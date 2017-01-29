@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import alignable from '../../decorators/alignable';
+import { merge } from '../../utils';
 import { spacingStyles } from './utils';
 
 const Spacing = (props) => {
@@ -10,11 +11,11 @@ const Spacing = (props) => {
   let styles = {};
 
   if (margin) {
-    styles = Object.assign({}, styles, spacingStyles({ margin }));
+    styles = merge(styles, spacingStyles({ margin }));
   }
 
   if (padding) {
-    styles = Object.assign({}, styles, spacingStyles({ padding }));
+    styles = merge(styles, spacingStyles({ padding }));
   }
 
   return (

@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { flatten } from 'lodash';
 import BreadcrumbItem from './BreadcrumbItem';
 import BreadcrumbSeparator from './BreadcrumbSeparator';
+import { merge } from '../../utils';
 
 const Breadcrumb = (props) => {
   const { children, embedded } = props;
@@ -10,7 +11,7 @@ const Breadcrumb = (props) => {
   const childrenCount = childrenArray.length;
   const childrenWithCarets = flatten(childrenArray.map((child, index) => {
     const isParent = childrenCount > 1 && index < childrenCount - 1;
-    const updatedChildProps = Object.assign({}, child.props, {
+    const updatedChildProps = merge(child.props, {
       parent: isParent,
     });
     const result = [<BreadcrumbItem {...updatedChildProps} />];
@@ -20,7 +21,7 @@ const Breadcrumb = (props) => {
     return result;
   })).map((child, index) => {
     const ChildType = child.type;
-    const propsWithIndex = Object.assign({}, child.props, { key: index });
+    const propsWithIndex = merge(child.props, { key: index });
     return <ChildType {...propsWithIndex} />;
   });
 

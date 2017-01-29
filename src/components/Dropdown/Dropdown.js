@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import { merge } from '../../utils';
 import { DropdownItem } from '../Dropdown';
 
 class Dropdown extends Component {
@@ -18,7 +19,7 @@ class Dropdown extends Component {
         <div className={classnames('ui-dropdown-items')}>
           {[].concat(this.props.children).map((child, i) => (
             <DropdownItem
-              key={i} {...Object.assign({}, child.props, {
+              key={i} {...merge(child.props, {
                 focussed: i === this.props.focussedIndex,
                 onClick: () => {
                   if (this.props.onItemClick) {

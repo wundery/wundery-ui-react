@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { size, set, get, filter, isUndefined, isNull, isArray, isString } from 'lodash';
+import { merge } from '../../utils';
 import { FormItem } from '../Form';
 import { spacingStyles } from '../Spacing/utils';
 
@@ -68,7 +69,7 @@ function Form(props) {
 
       if (ChildType === FormItem) {
         const attributeName = child.props.name;
-        const newChildProps = Object.assign({}, childProps, {
+        const newChildProps = merge(childProps, {
           onChange: value => onItemValueChanged(attributeName, value),
           errors: getItemErrors(errors, attributeName),
           pristine,
