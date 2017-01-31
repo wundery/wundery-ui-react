@@ -100,7 +100,7 @@ class TreeItem extends React.Component {
       <TreeItem
         label={_node.label}
         depth={_node.depth}
-        expanded={false}
+        expanded={_node.expanded}
         key={index}
         childs={_node.childs}
         onClick={onClick}
