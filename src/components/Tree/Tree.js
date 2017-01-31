@@ -7,7 +7,7 @@ class Tree extends React.Component {
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.object,
-    ]),
+    ]).isRequired,
 
     // Triggered on item click
     onItemClick: React.PropTypes.func.isRequired,
