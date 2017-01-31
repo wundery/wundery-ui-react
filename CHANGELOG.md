@@ -1,3 +1,8 @@
+# 5.0.12
+
+* Tree: require data prop.
+* Bugfix: Respect expand flag in sub tree items.
+
 # 5.0.11
 
 * Bugfix: use ES6 spread operators for merging instead of Object.assign (not supported in IE).
