@@ -129,6 +129,12 @@ class FormValidation {
           && !String(value).match(/^[a-z0-9-]+\.[a-z0-9-]+\.[a-z]{2,10}$/);
         break;
 
+      case 'regex':
+        error = hasField
+          && value
+          && !String(value).match(validation[name]);
+        break;
+
       case 'equal':
         error = value !== get(data, validation[name]);
         break;
@@ -153,6 +159,10 @@ class FormValidation {
 
       case 'posMoney':
         error = hasField && value && !String(value).match(/^[0-9,.]+$/);
+        break;
+
+      case 'posInteger':
+        error = hasField && value && !String(value).match(/^[0-9]*$/);
         break;
 
       case 'nonEmptyArray':
