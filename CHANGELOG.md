@@ -1,3 +1,8 @@
+# 5.0.13
+
+* Hint: enable custom icon or no icon at all.
+* Forms: Add regex and posInteger validation.
+
 # 5.0.12
 
 * Tree: require data prop.
