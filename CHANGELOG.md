@@ -1,3 +1,7 @@
+# 5.0.14
+
+* Forms: add hasKey validation.
+
 # 5.0.13
 
 * Hint: enable custom icon or no icon at all.
