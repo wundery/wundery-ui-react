@@ -5,6 +5,7 @@ import {
   isEmpty,
   isNull,
   isObject,
+  isPlainObject,
   keys,
   parseInt,
   trim,
@@ -121,6 +122,10 @@ class FormValidation {
 
       case 'creditCardExpMonth':
         error = hasField && value && !FormValidation.isValidExpMonth(value);
+        break;
+
+      case 'hasKeys':
+        error = hasField && value && !(isPlainObject(value) || keys(value).length === 0);
         break;
 
       case 'domainWithSubdomain':
