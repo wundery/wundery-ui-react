@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // Utils
 import classnames from 'classnames';
 import { parseInt, floor } from 'lodash';
+import times from 'lodash/times';
 
 // Framework components
 import { Icon } from '../Icon';
@@ -86,7 +87,9 @@ class Pagination extends Component {
     );
 
     const pages = [];
-    for (let index of Array(count).keys()) {
+    let index = 0;
+
+    times(count, () => {
       const page = index + 1;
       pages.push(
         <div
@@ -101,10 +104,9 @@ class Pagination extends Component {
         </div>
       );
       index += 1;
-    }
+    });
 
-
-    for (const i of Array(groupsCount).keys()) {
+    times(groupsCount, (i) => {
       const fromIndex = i * collapseThreshold;
       const toIndex = Math.min(
         (i * collapseThreshold) + collapseThreshold,
@@ -120,7 +122,7 @@ class Pagination extends Component {
           {pages.slice(fromIndex, toIndex)}
         </div>
       );
-    }
+    });
 
     return (
       <div
