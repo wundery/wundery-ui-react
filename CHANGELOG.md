@@ -1,3 +1,7 @@
+# 5.0.15
+
+* Bugfix (IE): do not use Array.keys().
+
 # 5.0.14
 
 * Forms: add hasKey validation.
