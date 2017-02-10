@@ -21,6 +21,7 @@ export * from './components/Gallery';
 export * from './components/Grid';
 export * from './components/Guide';
 export * from './components/Headline';
+export * from './components/HeroUnit';
 export * from './components/Highlight';
 export * from './components/Hint';
 export * from './components/Icon';
