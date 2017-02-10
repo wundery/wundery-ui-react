@@ -17,6 +17,7 @@ export * from './components/Filters';
 export * from './components/Flag';
 export * from './components/Flex';
 export * from './components/Form';
+export * from './components/Funnel';
 export * from './components/Gallery';
 export * from './components/Grid';
 export * from './components/Guide';
