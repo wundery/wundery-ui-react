@@ -14,16 +14,17 @@ const COLORS = {
 function Icon(props) {
   const {
     className,
-    spin,
-    light,
+    color,
     large,
-    size,
+    light,
+    muted,
+    name,
     noMargin,
     onClick,
-    name,
     set,
-    color,
-    muted,
+    size,
+    spin,
+    theme,
   } = props;
 
   const setClasses = [];
@@ -54,7 +55,7 @@ function Icon(props) {
     sizeClasses.push('ui-icon-size-large');
   }
 
-  const classNames = classnames('ui-icon', {
+  const classNames = classnames('ui-icon', `ui-icon-theme-${theme}`, {
     'ui-icon-color-light': light,
     'ui-icon-nomargin': noMargin,
     'ui-text-muted': muted,
@@ -64,21 +65,32 @@ function Icon(props) {
 }
 
 Icon.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  spin: React.PropTypes.bool,
-  large: React.PropTypes.bool,
-  muted: React.PropTypes.bool,
-  light: React.PropTypes.bool,
-  onClick: React.PropTypes.func,
-  noMargin: React.PropTypes.bool,
   className: React.PropTypes.string,
   color: React.PropTypes.string,
+  large: React.PropTypes.bool,
+  light: React.PropTypes.bool,
+  muted: React.PropTypes.bool,
+  name: React.PropTypes.string.isRequired,
+  noMargin: React.PropTypes.bool,
+  onClick: React.PropTypes.func,
   set: React.PropTypes.oneOf([FONTAWESOME4, DEVICONS]).isRequired,
   size: React.PropTypes.oneOf(['default', 'small', 'larger', 'large']),
+  spin: React.PropTypes.bool,
+  theme: React.PropTypes.oneOf(['default', 'success']),
 };
 
 Icon.defaultProps = {
+  className: null,
+  color: null,
+  large: false,
+  light: false,
+  muted: false,
+  noMargin: false,
+  onClick: null,
   set: FONTAWESOME4,
+  size: 'default',
+  spin: false,
+  theme: 'default',
 };
 
 export default tweakable(Icon);
