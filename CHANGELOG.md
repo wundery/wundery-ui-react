@@ -1,3 +1,13 @@
+# 5.0.16
+
+This release contains two new features and some minor improvements:
+
+* New feature: funnel.
+* New feature: hero unit.
+* New HOC: spacable.
+* Box content: introduce theme prop.
+* Icon: introduce theme prop.
+
 # 5.0.15
 
 * Bugfix (IE): do not use Array.keys().
