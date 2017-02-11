@@ -88,11 +88,28 @@ class Table extends Component {
     margin: React.PropTypes.string,
     error: React.PropTypes.node,
     emptyBody: React.PropTypes.func,
+
+    // If defined, the table rows are expandable
+    onExpand: React.PropTypes.func,
+
+    /**
+     * Triggered when a datum was updated by the table. Us this to update the data
+     * prop and trigger a re-render.
+     */
+    onUpdate: React.PropTypes.func,
+
+    /**
+     * If specified, this is used to validate inline-edit data.
+     */
+    onValidate: React.PropTypes.func,
   }
 
   static defaultProps = {
     data: [],
+    onExpand: null,
     onOrder: null,
+    onUpdate: null,
+    onValidate: null,
   }
 
   constructor(props) {
@@ -111,6 +128,12 @@ class Table extends Component {
       // If the onPaginate callback returns a promise. this flag will be set to
       // true during promise fulfillment
       paginating: false,
+
+      // Expaned rows
+      expansions: {},
+
+      // Expansion in progress
+      expanding: [],
     };
   }
 
@@ -125,6 +148,62 @@ class Table extends Component {
     return null;
   }
 
+  onUpdateDatum = (prevDatum, nextDatum) => {
+    const { onUpdate } = this.props;
+
+    if (onUpdate) {
+      onUpdate(prevDatum, nextDatum);
+    }
+  }
+
+  onExpandClick = (datum) => {
+    const { onExpand } = this.props;
+
+    const index = this.getExpansionIndex(datum);
+
+    if (this.isExpanding(index)) {
+      return;
+    }
+
+    if (this.isExpanded(index)) {
+      const newExpansions = { ...this.state.expansions };
+      delete newExpansions[index];
+      this.setState({ expansions: newExpansions });
+    } else {
+      const result = onExpand(datum);
+
+      if (isPromise(result)) {
+        // Set expanding
+        this.setState(state => ({
+          expanding: state.expanding.concat(index),
+        }));
+
+        result.then((content) => {
+          this.setState(state => ({
+            expanding: state.expanding.filter(i => i !== index),
+            expansions: { ...state.expansions, [index]: content },
+          }));
+        });
+      }
+    }
+  }
+
+  onPageSizeChange = (nextPageSize) => {
+    const { onPageSizeChange } = this.props;
+
+    this.resetExpansion();
+
+    onPageSizeChange(nextPageSize);
+  }
+
+  getExpansionIndex(datum) {
+    if (!datum.id) {
+      throw new Error('For expansion, data items nedd an id field');
+    }
+
+    return datum.id;
+  }
+
   isSelectable() {
     return typeof this.props.onSelect === 'function';
   }
@@ -133,12 +212,28 @@ class Table extends Component {
     return typeof this.props.onOrder === 'function';
   }
 
+  isExpanding(rowIndex) {
+    return this.state.expanding.indexOf(rowIndex) > -1;
+  }
+
+  isExpanded(rowIndex) {
+    return this.state.expansions[rowIndex];
+  }
+
+  isExpandable() {
+    return typeof this.props.onExpand === 'function';
+  }
+
   bodyRef = (ref) => {
     if (ref) {
       if (this.isOrderable()) {
         // Todo - intialite drag-drop-lib on ref
       }
     }
+  }
+
+  resetExpansion() {
+    this.setState({ expansions: {}, expanding: [] });
   }
 
   renderHeaderRow(columns) {
@@ -164,7 +259,13 @@ class Table extends Component {
   }
 
   renderDataRows(columns) {
-    const { highlighted, addonBuilder, onSelect, selectOnRowClick } = this.props;
+    const {
+      addonBuilder,
+      highlighted,
+      onSelect,
+      onValidate,
+      selectOnRowClick,
+    } = this.props;
 
     const rows = this.props.data.map((datum, index) => {
       const isHighlighted = highlighted ? highlighted(datum) : false;
@@ -173,6 +274,7 @@ class Table extends Component {
         ? event => this.onSelectRow(event, datum)
         : null;
 
+      const expansionIndex = this.getExpansionIndex(datum);
 
       return (
         <TableRow
@@ -181,9 +283,11 @@ class Table extends Component {
           datum={datum}
           highlighted={isHighlighted}
           columns={columns}
-
+          expansion={this.state.expansions[expansionIndex]}
           addon={addon}
           onRowClick={onRowClick}
+          onUpdateDatum={this.onUpdateDatum}
+          onValidate={onValidate}
         />
       );
     });
@@ -249,6 +353,26 @@ class Table extends Component {
     );
   }
 
+  renderExpandColumn() {
+    const builder = (datum) => {
+      const onClick = () => this.onExpandClick(datum);
+
+      const index = this.getExpansionIndex(datum);
+      const isExpanding = this.isExpanding(index);
+      const isExpanded = this.isExpanded(index);
+
+      return (
+        <div className="ui-table-row-expand-trigger" tabIndex={0} onClick={onClick}>
+          {!isExpanding && !isExpanded && <Icon name="plus-square-o" />}
+          {isExpanding && <Spinner />}
+          {!isExpanding && isExpanded && <Icon name="minus-square-o" />}
+        </div>
+      );
+    };
+
+    return <TableColumn width={50} builder={builder} center expander />;
+  }
+
   renderPagination() {
     const { pages, page, onPaginate } = this.props;
     const { paginating } = this.state;
@@ -260,7 +384,7 @@ class Table extends Component {
     // If an onPaginate handler is given, build a wrapper that changes the
     // state
     const onPaginateWrapper = (p) => {
-      this.setState({ paginating: true }, () => {
+      this.setState({ expansions: {}, expanding: [], paginating: true }, () => {
         const result = this.props.onPaginate(p);
 
         // Check if the result is a promise. If so, wait for it to be
@@ -302,11 +426,16 @@ class Table extends Component {
       columns.unshift(this.renderOrderColumn());
     }
 
+    // Prepend the order column
+    if (this.isExpandable()) {
+      columns.unshift(this.renderExpandColumn());
+    }
+
     return columns;
   }
 
   renderPageSizes() {
-    const { onPaginate, pageSizes, onPageSizeChange, pageSize } = this.props;
+    const { onPaginate, pageSizes, pageSize } = this.props;
 
     if (onPaginate && pageSizes) {
       return (
@@ -315,7 +444,7 @@ class Table extends Component {
             <a
               key={index}
               tabIndex={index}
-              onClick={() => onPageSizeChange(size)}
+              onClick={() => this.onPageSizeChange(size)}
               className={classnames('ui-table-footer-page-size', {
                 'ui-table-footer-page-size-active': size === pageSize,
               })}

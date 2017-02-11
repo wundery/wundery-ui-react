@@ -39,7 +39,18 @@ const determineCellValue = (column, datum, isHeaderRow, index) => {
 };
 
 const TableRow = (props) => {
-  const { onRowClick, header: isHeaderRow, datum, columns, children, addon, index } = props;
+  const {
+    addon,
+    children,
+    columns,
+    datum,
+    expansion,
+    header: isHeaderRow,
+    index,
+    onRowClick,
+    onUpdateDatum,
+    onValidate,
+  } = props;
 
   // Is this row clickable
   const isClickable = typeof onRowClick === 'function';
@@ -58,7 +69,10 @@ const TableRow = (props) => {
       bold,
       center,
       copyable,
+      editable,
+      expander,
       icon,
+      onEdit,
       onSort,
       orderHandle,
       right,
@@ -68,17 +82,23 @@ const TableRow = (props) => {
 
     return (
       <TableCell
-        key={columnIndex}
-        width={width}
-        value={determineCellValue(column, datum, isHeaderRow, index)}
-        copyable={copyable && !isHeaderRow}
-        onSort={isHeaderRow ? onSort : null}
         bold={bold && !isHeaderRow}
-        right={right}
         center={center}
-        orderHandle={orderHandle}
-        title={title}
+        copyable={copyable && !isHeaderRow}
+        datum={datum}
+        expander={expander}
+        editable={editable}
+        onEdit={onEdit}
         icon={isHeaderRow ? icon : null}
+        key={columnIndex}
+        onSort={isHeaderRow ? onSort : null}
+        orderHandle={orderHandle}
+        right={right}
+        title={title}
+        value={determineCellValue(column, datum, isHeaderRow, index)}
+        width={width}
+        onUpdateDatum={onUpdateDatum}
+        onValidate={onValidate}
       />
     );
   }) : children;
@@ -95,6 +115,11 @@ const TableRow = (props) => {
         {cells}
       </div>
       {rowAddon}
+      {expansion && (
+        <div className="ui-table-row-expansion">
+          {expansion}
+        </div>
+      )}
     </div>
   );
 };
@@ -108,6 +133,15 @@ TableRow.propTypes = {
   children: React.PropTypes.node,
   addon: React.PropTypes.node,
   index: React.PropTypes.any,
+  expansion: React.PropTypes.node,
+  onUpdateDatum: React.PropTypes.func,
+  onValidate: React.PropTypes.func,
+};
+
+TableRow.defaultProps = {
+  expansion: null,
+  onUpdateDatum: null,
+  onValidate: null,
 };
 
 export default TableRow;
