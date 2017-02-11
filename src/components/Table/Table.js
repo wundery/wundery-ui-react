@@ -274,7 +274,9 @@ class Table extends Component {
         ? event => this.onSelectRow(event, datum)
         : null;
 
-      const expansionIndex = this.getExpansionIndex(datum);
+      const expansionIndex = this.isExpandable()
+        ? this.getExpansionIndex(datum)
+        : null;
 
       return (
         <TableRow
