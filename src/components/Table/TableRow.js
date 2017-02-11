@@ -87,8 +87,8 @@ const TableRow = (props) => {
         copyable={copyable && !isHeaderRow}
         datum={datum}
         expander={expander}
-        editable={editable}
-        onEdit={onEdit}
+        editable={!isHeaderRow && editable}
+        onEdit={isHeaderRow ? null : onEdit}
         icon={isHeaderRow ? icon : null}
         key={columnIndex}
         onSort={isHeaderRow ? onSort : null}
