@@ -23,7 +23,7 @@ class TableCell extends Component {
     expander: React.PropTypes.bool,
     onEdit: React.PropTypes.func,
     datum: React.PropTypes.object,
-    editable: React.PropTypes.string,
+    editable: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.bool]),
     onUpdateDatum: React.PropTypes.func,
     onValidate: React.PropTypes.func,
   };
@@ -31,7 +31,7 @@ class TableCell extends Component {
   static defaultProps = {
     header: null,
     onEdit: null,
-    editable: null,
+    editable: false,
     expander: false,
     datum: null,
     onUpdateDatum: null,
