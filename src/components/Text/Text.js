@@ -2,9 +2,21 @@ import React from 'react';
 import classnames from 'classnames';
 import { spacingStyles } from '../Spacing/utils';
 
-function Text({ margin, padding, children, block, small, bold, muted, center }) {
+function Text(props) {
+  const {
+    block,
+    bold,
+    center,
+    children,
+    margin,
+    muted,
+    padding,
+    small,
+    theme,
+  } = props;
+
   const style = spacingStyles({ margin, padding });
-  const classNames = classnames('ui-text', {
+  const classNames = classnames('ui-text', `ui-text-theme-${theme}`, {
     'ui-text-muted': muted,
     'ui-text-bold': bold,
     'ui-text-small': small,
@@ -25,6 +37,11 @@ Text.propTypes = {
   padding: React.PropTypes.string,
   small: React.PropTypes.bool,
   center: React.PropTypes.bool,
+  theme: React.PropTypes.oneOf(['default', 'success', 'light']),
+};
+
+Text.defaultProps = {
+  theme: 'default',
 };
 
 export default Text;
