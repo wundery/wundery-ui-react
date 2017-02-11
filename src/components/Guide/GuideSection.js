@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 
 // Utils
-import { PrismCode } from 'react-prism';
 import classnames from 'classnames';
 
 // Framework components
@@ -61,9 +60,7 @@ class GuideSection extends Component {
             })}
           >
             <pre>
-              <PrismCode className="language-jsx">
-                {code}
-              </PrismCode>
+              {code}
             </pre>
           </div>
         </Box>
