@@ -206,6 +206,12 @@ class FormItem extends Component {
     return input;
   }
 
+  renderStaticControl() {
+    const { children } = this.props;
+
+    return children;
+  }
+
   renderCustomControl() {
     const { value, element } = this.props;
     const { props: elementProps, type: ElementType } = element;
@@ -241,6 +247,9 @@ class FormItem extends Component {
 
       case 'checkbox':
         return this.renderCheckboxControl();
+
+      case 'static':
+        return this.renderStaticControl();
 
       default:
         return <span>Unknown element {type}</span>;
