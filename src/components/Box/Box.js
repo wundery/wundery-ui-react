@@ -80,7 +80,7 @@ Box.propTypes = {
   onClick: React.PropTypes.func,
   padding: React.PropTypes.string,
   ribbon: React.PropTypes.node,
-  theme: React.PropTypes.oneOf(['default', 'highlight', 'error', 'info']).isRequired,
+  theme: React.PropTypes.oneOf(['default', 'highlight', 'error', 'info', 'success']).isRequired,
 };
 
 Box.defaultProps = {

@@ -4,7 +4,7 @@ import { isString } from 'lodash';
 import { Icon } from '../Icon';
 
 function DropdownItem(props) {
-  const { title, focussed, onClick, icon, image, description, body } = props;
+  const { title, focussed, onClick, icon, image, description, body, children } = props;
 
   const className = classnames('ui-dropdown-item', {
     'ui-dropdown-item-focussed': focussed,
@@ -34,9 +34,14 @@ function DropdownItem(props) {
             {description}
           </div>
         )}
-        {body && (
+        {body && !children && (
           <div className={classnames('ui-dropdown-item-body')}>
             {body}
+          </div>
+        )}
+        {children && !body && (
+          <div className={classnames('ui-dropdown-item-body')}>
+            {children}
           </div>
         )}
       </div>
@@ -48,6 +53,7 @@ DropdownItem.propTypes = {
   title: React.PropTypes.node,
   description: React.PropTypes.string,
   body: React.PropTypes.object,
+  children: React.PropTypes.node,
   icon: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.object,
@@ -59,6 +65,7 @@ DropdownItem.propTypes = {
 
 DropdownItem.defaultProps = {
   onClick: () => {},
+  children: null,
 };
 
 export default DropdownItem;

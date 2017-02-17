@@ -50,7 +50,7 @@ function FormOptionListItem(props) {
   return (
     <ListItem onClick={onClick}>
       <Flex noPadding noWrap>
-        <FlexItem width={40}>
+        <FlexItem width={40} noShrink>
           {renderInput()}
         </FlexItem>
         <FlexItem grow>
@@ -63,7 +63,7 @@ function FormOptionListItem(props) {
 
 FormOptionListItem.propTypes = {
   children: React.PropTypes.node,
-  value: React.PropTypes.string.isRequired,
+  value: React.PropTypes.any.isRequired,
   name: React.PropTypes.string,
   onChange: React.PropTypes.func,
   defaultChecked: React.PropTypes.bool.isRequired,
