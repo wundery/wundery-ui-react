@@ -4,7 +4,7 @@
   "description": "React bindings for the Wundery UI framework",
   "main": "./dist/index.js",
   "engines": {
-    "node": "stable"
+    "node": ">=6"
   },
   "scripts": {
     "build": "rm -rf dist/src && babel src --out-dir dist --ignore '**/__tests__/**'",
