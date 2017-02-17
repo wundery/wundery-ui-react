@@ -336,31 +336,32 @@ class FormItem extends Component {
 
 FormItem.propTypes = {
   addon: React.PropTypes.node,
-  innerAddon: React.PropTypes.node,
-  labelAddon: React.PropTypes.object,
+  children: React.PropTypes.node,
   compact: React.PropTypes.bool,
   defaultValue: React.PropTypes.any,
   description: React.PropTypes.node,
   disabled: React.PropTypes.bool,
+  dropdown: React.PropTypes.node,
   element: React.PropTypes.object,
   errors: React.PropTypes.array.isRequired,
+  guard: React.PropTypes.string,
+  innerAddon: React.PropTypes.node,
   label: React.PropTypes.string,
+  labelAddon: React.PropTypes.object,
   onChange: React.PropTypes.func,
+  options: React.PropTypes.arrayOf(React.PropTypes.shape({
+    label: React.PropTypes.string.isRequired,
+    value: React.PropTypes.string,
+  })),
+  placeholder: React.PropTypes.string,
   prefix: React.PropTypes.node,
+  pristine: React.PropTypes.bool,
   required: React.PropTypes.bool,
   requiredText: React.PropTypes.string.isRequired,
   suffix: React.PropTypes.any,
   tabIndex: React.PropTypes.number,
   type: React.PropTypes.string,
   value: React.PropTypes.any,
-  dropdown: React.PropTypes.node,
-  placeholder: React.PropTypes.string,
-  guard: React.PropTypes.string,
-  pristine: React.PropTypes.bool,
-  options: React.PropTypes.arrayOf(React.PropTypes.shape({
-    label: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string,
-  })),
 
   // If true, the error message will be hidden
   hideErrorMessage: React.PropTypes.bool,
@@ -368,22 +369,21 @@ FormItem.propTypes = {
   // Whether the form should be rendered inline
   inline: React.PropTypes.bool,
 
-  /**
-   * Specifies whether a spinner should be rendered
-   * @type {Boolean}
-   */
+  // Specifies whether a spinner should be rendered
   spinner: React.PropTypes.bool,
 
+  // A ref which is applied to the specific control element (e.g for focus)
   controlRef: React.PropTypes.func,
 };
 
 FormItem.defaultProps = {
-  onChange: () => {},
-  errors: [],
-  options: [],
-  disabled: false,
-  requiredText: '*',
+  children: null,
   controlRef: () => {},
+  disabled: false,
+  errors: [],
+  onChange: () => {},
+  options: [],
+  requiredText: '*',
 };
 
 export default FormItem;

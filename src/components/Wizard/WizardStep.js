@@ -13,4 +13,12 @@ function WizardStep(props) {
   );
 }
 
+WizardStep.propTypes = {
+  children: React.PropTypes.node,
+};
+
+WizardStep.defaultProps = {
+  children: null,
+};
+
 export default WizardStep;
