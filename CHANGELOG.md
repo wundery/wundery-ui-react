@@ -1,3 +1,14 @@
+# 5.0.17
+
+* New table features: expansion and inline edit.
+* Add webpack integration playground.
+* Add wizard component.
+* Support static form item elements.
+* Text: introduce theme prop.
+* Cleanup project dependencies.
+* Add missing default props to info component.
+* Minor enhancements to multiple components.
+
 # 5.0.16
 
 This release contains two new features and some minor improvements:
