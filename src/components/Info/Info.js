@@ -16,4 +16,9 @@ Info.propTypes = {
   margin: React.PropTypes.string,
 };
 
+Info.defaultProps = {
+  children: null,
+  margin: null,
+};
+
 export default Info;
