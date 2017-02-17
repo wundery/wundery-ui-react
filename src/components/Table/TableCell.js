@@ -26,6 +26,7 @@ class TableCell extends Component {
     editable: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.bool]),
     onUpdateDatum: React.PropTypes.func,
     onValidate: React.PropTypes.func,
+    cancelLabel: React.PropTypes.string,
   };
 
   static defaultProps = {
@@ -36,6 +37,7 @@ class TableCell extends Component {
     datum: null,
     onUpdateDatum: null,
     onValidate: null,
+    cancelLabel: null,
   };
 
   constructor(props) {
@@ -211,6 +213,7 @@ class TableCell extends Component {
   }
 
   renderEditingCell() {
+    const { cancelLabel } = this.props;
     const { editingValue, editingErrors, saving } = this.state;
 
     const suffix = (
@@ -222,8 +225,13 @@ class TableCell extends Component {
           type="submit"
           disabled={editingErrors.length > 0}
         />
-        <Button icon="times" disabled={saving} onClick={this.onCancelClick} />
       </ButtonGroup>
+    );
+
+    const addon = (
+      <Button margin="0.5xt" disabled={saving} onClick={this.onCancelClick} theme="link">
+        {cancelLabel}
+      </Button>
     );
 
     return (
@@ -239,6 +247,7 @@ class TableCell extends Component {
             value={editingValue}
             name="newValue"
             controlRef={this.setEditControlRef}
+            addon={addon}
           />
         </Form>
       </div>

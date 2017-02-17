@@ -41,6 +41,7 @@ const determineCellValue = (column, datum, isHeaderRow, index) => {
 const TableRow = (props) => {
   const {
     addon,
+    cancelLabel,
     children,
     columns,
     datum,
@@ -99,6 +100,7 @@ const TableRow = (props) => {
         width={width}
         onUpdateDatum={onUpdateDatum}
         onValidate={onValidate}
+        cancelLabel={cancelLabel}
       />
     );
   }) : children;
@@ -136,12 +138,14 @@ TableRow.propTypes = {
   expansion: React.PropTypes.node,
   onUpdateDatum: React.PropTypes.func,
   onValidate: React.PropTypes.func,
+  cancelLabel: React.PropTypes.string,
 };
 
 TableRow.defaultProps = {
   expansion: null,
   onUpdateDatum: null,
   onValidate: null,
+  cancelLabel: null,
 };
 
 export default TableRow;

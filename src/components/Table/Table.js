@@ -102,6 +102,8 @@ class Table extends Component {
      * If specified, this is used to validate inline-edit data.
      */
     onValidate: React.PropTypes.func,
+
+    cancelLabel: React.PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -110,7 +112,8 @@ class Table extends Component {
     onOrder: null,
     onUpdate: null,
     onValidate: null,
-  }
+    cancelLabel: 'Cancel',
+  };
 
   constructor(props) {
     super(props);
@@ -261,6 +264,7 @@ class Table extends Component {
   renderDataRows(columns) {
     const {
       addonBuilder,
+      cancelLabel,
       highlighted,
       onSelect,
       onValidate,
@@ -280,13 +284,14 @@ class Table extends Component {
 
       return (
         <TableRow
-          key={index}
-          index={index}
-          datum={datum}
-          highlighted={isHighlighted}
-          columns={columns}
-          expansion={this.state.expansions[expansionIndex]}
           addon={addon}
+          cancelLabel={cancelLabel}
+          columns={columns}
+          datum={datum}
+          expansion={this.state.expansions[expansionIndex]}
+          highlighted={isHighlighted}
+          index={index}
+          key={index}
           onRowClick={onRowClick}
           onUpdateDatum={this.onUpdateDatum}
           onValidate={onValidate}
