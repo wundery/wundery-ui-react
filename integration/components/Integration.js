@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spacing } from 'wundery-ui-react/components/Spacing';
 import { HeroUnit } from 'wundery-ui-react/components/HeroUnit';
-import { TableExamples } from 'examples';
+import { TableExamples, WizardExamples } from 'examples';
 
 class Integration extends React.Component {
   render() {
@@ -12,6 +12,7 @@ class Integration extends React.Component {
         </HeroUnit>
         <Spacing margin="2xt">
           <TableExamples />
+          <WizardExamples />
         </Spacing>
       </Spacing>
     );

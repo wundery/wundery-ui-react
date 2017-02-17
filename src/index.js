@@ -54,6 +54,7 @@ export * from './components/Timeline';
 export * from './components/Tooltip';
 export * from './components/Transfer';
 export * from './components/Tree';
+export * from './components/Wizard';
 export * from './components/Wrapper';
 export * from './components/Wundery';
 export * from './utils';
