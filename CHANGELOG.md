@@ -1,3 +1,7 @@
+# 5.0.18
+
+* Switch back to node version >=6 instead of stable.
+
 # 5.0.17
 
 * New table features: expansion and inline edit.
