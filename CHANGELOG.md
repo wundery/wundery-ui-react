@@ -1,3 +1,7 @@
+# 5.0.19
+
+* Bugfix: Allow tabs component to have only one tab.
+
 # 5.0.18
 
 * Switch back to node version >=6 instead of stable.
