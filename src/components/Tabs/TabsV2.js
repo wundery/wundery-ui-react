@@ -36,7 +36,7 @@ function Tabs({ embedded, children, onChange, active }) {
   function renderHeaders() {
     return (
       <div className="ui-tabs-headers">
-        {children.filter(filterTabs).map(renderHeader)}
+        {[].concat(children).filter(filterTabs).map(renderHeader)}
       </div>
     );
   }
@@ -49,7 +49,7 @@ function Tabs({ embedded, children, onChange, active }) {
     const builder = get(tab, 'props.builder');
 
     const buildTabContent = () => {
-      if (builder) { return builder(); }
+      if (builder) { return builder(tabName); }
 
       return tab.props.children;
     };
@@ -65,7 +65,7 @@ function Tabs({ embedded, children, onChange, active }) {
   function renderTabs() {
     return (
       <div className="ui-tabs-contents">
-        {children.filter(filterTabs).map(renderTab)}
+        {[].concat(children).filter(filterTabs).map(renderTab)}
       </div>
     );
   }
