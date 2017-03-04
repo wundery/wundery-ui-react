@@ -1,3 +1,7 @@
+# 5.0.20
+
+* Move webpack to dev dependencies.
+
 # 5.0.19
 
 * Bugfix: Allow tabs component to have only one tab.
