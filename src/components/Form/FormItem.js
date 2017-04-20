@@ -141,13 +141,6 @@ class FormItem extends Component {
     const { value, tabIndex, disabled, options, controlRef } = this.props;
     const { onChange } = this;
 
-    if (!value) {
-      options.unshift({
-        label: '',
-        value: null,
-      });
-    }
-
     const input = (
       <select
         onChange={event => onChange(event.target.value)}
