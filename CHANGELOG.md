@@ -1,3 +1,7 @@
+# 5.0.21
+
+* Remove empty default value for select fields.
+
 # 5.0.20
 
 * Move webpack to dev dependencies.
