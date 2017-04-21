@@ -17,7 +17,7 @@ class TableCell extends Component {
     onSort: React.PropTypes.func,
     orderHandle: React.PropTypes.bool,
     right: React.PropTypes.bool,
-    title: React.PropTypes.string,
+    title: React.PropTypes.node,
     value: React.PropTypes.node,
     width: React.PropTypes.number,
     expander: React.PropTypes.bool,

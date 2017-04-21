@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { has, get } from 'lodash';
-import { isPromise } from '../../utils';
+import { isPromise, move } from '../../utils';
 import TableRow from './TableRow';
 import TableColumn from './TableColumn';
 import { Pagination } from '../Pagination';
 import { Spinner } from '../Spinner';
+import { Button, ButtonGroup } from '../Button';
 import { Icon } from '../Icon';
 import { spacingStyles } from '../Spacing/utils';
 
@@ -67,11 +68,9 @@ class Table extends Component {
     addonBuilder: React.PropTypes.func,
     noHeader: React.PropTypes.bool,
 
-    /**
-     *  If specified, the table columns are drag-and-drop orderable by the user.
-     *  On drag release this callback is invoked and receives the an array containing
-     *  the objects in the new order
-     */
+    // If specified, the table columns are orderable by the user.
+    // On drag release this callback is invoked and receives the an array containing
+    // the objects in the new order.
     onOrder: React.PropTypes.func,
 
     // If this is specified the table is assumed to be mass-selectable.
@@ -199,6 +198,16 @@ class Table extends Component {
     onPageSizeChange(nextPageSize);
   }
 
+  onMoveUpClick(datum) {
+    this.resetExpansion();
+    this.props.onOrder(this.moveDatum(datum, -1));
+  }
+
+  onMoveDownClick(datum) {
+    this.resetExpansion();
+    this.props.onOrder(this.moveDatum(datum, 1));
+  }
+
   getExpansionIndex(datum) {
     if (!datum.id) {
       throw new Error('For expansion, data items nedd an id field');
@@ -225,6 +234,14 @@ class Table extends Component {
 
   isExpandable() {
     return typeof this.props.onExpand === 'function';
+  }
+
+  moveDatum(datum, modifier) {
+    const { data } = this.props;
+
+    const index = data.indexOf(datum);
+
+    return move(data, index, index + modifier);
   }
 
   bodyRef = (ref) => {
@@ -352,11 +369,31 @@ class Table extends Component {
   renderOrderColumn() {
     return (
       <TableColumn
-        width={50}
+        width={100}
         title={<Icon name="arrows-v" />}
-        builder={() => <Icon name="bars" className="ui-table-drag-handle" />}
+        builder={this.renderOrderCell}
         center
       />
+    );
+  }
+
+  renderOrderCell = (datum, rowIndex) => {
+    const { data } = this.props;
+    const lastRowIndex = data.length - 1;
+
+    return (
+      <ButtonGroup>
+        <Button
+          icon="caret-up"
+          disabled={rowIndex === 0}
+          onClick={() => this.onMoveUpClick(datum)}
+        />
+        <Button
+          icon="caret-down"
+          disabled={rowIndex === lastRowIndex}
+          onClick={() => this.onMoveDownClick(datum)}
+        />
+      </ButtonGroup>
     );
   }
 

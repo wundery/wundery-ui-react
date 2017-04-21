@@ -26,6 +26,7 @@ class TableExamples extends React.Component {
       expandableTablePage: 1,
       expandableTablePageSize: 3,
       editableTableData: tableData(3),
+      orderableTableData: tableData(3),
     };
   }
 
@@ -132,6 +133,12 @@ class TableExamples extends React.Component {
     expandableTableData: tableData(pageSize),
   });
 
+  onOrder = (objects) => {
+    this.setState({
+      orderableTableData: objects,
+    });
+  }
+
   renderExpandableExample() {
     return (
       <Example title="Expandable table with pagination">
@@ -161,12 +168,37 @@ class TableExamples extends React.Component {
     );
   }
 
+  renderOrderableExample() {
+    return (
+      <Example title="Orderable table">
+        <Table
+          data={this.state.orderableTableData}
+          onExpand={this.onExpandClick}
+          onOrder={this.onOrder}
+        >
+          <TableColumn
+            title="ID"
+            attribute="id"
+            width={60}
+            copyable
+            center
+          />
+          <TableColumn
+            title="Product title"
+            attribute="title"
+          />
+        </Table>
+      </Example>
+    );
+  }
+
   render() {
     return (
       <ExampleSet title="Tables">
         {this.renderDefaultExample()}
         {this.renderExpandableExample()}
         {this.renderEditableExample()}
+        {this.renderOrderableExample()}
       </ExampleSet>
     );
   }
