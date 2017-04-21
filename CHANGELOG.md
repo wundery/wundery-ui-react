@@ -1,3 +1,7 @@
+# v5.0.22
+
+* New feature: make table rows orderable.
+
 # 5.0.21
 
 * Remove empty default value for select fields.
