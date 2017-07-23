@@ -4,9 +4,9 @@ machine:
 
 dependencies:
   override:
-    - npm install
+    - yarn install
 
 test:
   override:
-    - npm run lint
-    - npm run test
+    - yarn run lint
+    - yarn run test
