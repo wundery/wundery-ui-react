@@ -170,6 +170,12 @@ class FormValidation {
         error = hasField && value && !String(value).match(/^[0-9]*$/);
         break;
 
+      case 'iban':
+        error = hasField && value && !String(value).match(
+          /[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/
+        );
+        break;
+
       case 'nonEmptyArray':
         error = !hasField || !isArray(value) || value.length === 0;
         break;
