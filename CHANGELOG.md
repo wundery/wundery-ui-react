@@ -1,3 +1,7 @@
+# v5.0.23
+
+* New feature: add IBAN validation.
+
 # v5.0.22
 
 * New feature: make table rows orderable.
