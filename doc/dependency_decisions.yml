@@ -1,0 +1,99 @@
+---
+- - :whitelist
+  - BSD*
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:26:53.488739000 Z
+- - :whitelist
+  - MIT
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:26:56.812972000 Z
+- - :whitelist
+  - MIT*
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:26:58.608269000 Z
+- - :whitelist
+  - WTFPL
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:27:03.878324000 Z
+- - :whitelist
+  - ISC
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:27:07.066602000 Z
+- - :whitelist
+  - ISC*
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:27:08.931001000 Z
+- - :whitelist
+  - Apache*
+  - &1
+    :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:27:56.822932000 Z
+- - :whitelist
+  - Apache 2.0
+  - *1
+- - :whitelist
+  - Simplified BSD
+  - *1
+- - :whitelist
+  - New BSD
+  - *1
+- - :whitelist
+  - "(MIT AND CC-BY-3.0)"
+  - *1
+- - :whitelist
+  - "(WTFPL OR MIT)"
+  - &2
+    :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:28:18.267190000 Z
+- - :whitelist
+  - BSD
+  - *2
+- - :whitelist
+  - BSD-3-Clause AND MIT
+  - *2
+- - :approve
+  - spdx-license-ids
+  - :who: PF
+    :why: Used in local dev build only, no distribution
+    :versions: []
+    :when: 2018-08-20 18:28:28.706523000 Z
+- - :approve
+  - tweetnacl
+  - :who: PF
+    :why: Used in local dev build only, no distribution
+    :versions: []
+    :when: 2018-08-20 18:28:33.287814000 Z
+- - :approve
+  - sntp
+  - :who: PF
+    :why: Used in local dev build only, no distribution
+    :versions: []
+    :when: 2018-08-20 18:28:36.772849000 Z
+- - :whitelist
+  - Public Domain
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:28:49.376145000 Z
+- - :whitelist
+  - "(BSD-2-Clause OR MIT OR Apache-2.0)"
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2018-08-20 18:28:57.899932000 Z
