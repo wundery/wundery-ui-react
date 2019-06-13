@@ -180,6 +180,10 @@ class FormValidation {
         error = !hasField || !isArray(value) || value.length === 0;
         break;
 
+      case 'hourRange':
+        error = hasField && value && !String(value).match(/^\d+-\d+$|^\d+$/);
+        break;
+
       default:
         throw new Error(`Unknown validation ${JSON.stringify(validation)}`);
     }
