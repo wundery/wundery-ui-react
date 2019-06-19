@@ -52,15 +52,15 @@ class FormItem extends Component {
     const { onChange } = this.props;
     const guardRegex = this.getGuardRegex();
 
-    this.setState({ pristine: false }, () => {
-      if (guardRegex) {
-        if (String(newValue).match(guardRegex)) {
-          onChange(newValue);
-        }
-      } else {
+    this.setState({ pristine: false });
+    
+    if (guardRegex) {
+      if (String(newValue).match(guardRegex)) {
         onChange(newValue);
       }
-    });
+    } else {
+      onChange(newValue);
+    }
   }
 
   getGuardRegex() {
