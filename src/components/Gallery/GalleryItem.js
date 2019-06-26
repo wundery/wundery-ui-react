@@ -5,7 +5,7 @@ import { Progress } from '../Progress';
 import { Icon } from '../Icon';
 
 function GalleryItem(props) {
-  const { addon, onClick, progress, ribbon, small, src, highlighted } = props;
+  const { addon, onClick, progress, ribbon, small, size, src, highlighted, medium } = props;
 
   const style = { backgroundImage: `url("${src}")` };
   const linkClassName = classnames('ui-gallery-item', {
@@ -15,6 +15,7 @@ function GalleryItem(props) {
   const className = classnames('ui-gallery-item-wrapper', {
     'ui-gallery-item-wrapper-size-small': small,
     'ui-gallery-item-highlighted': highlighted,
+    'ui-gallery-item-wrapper-size-medium': medium
   });
 
   return (
@@ -56,6 +57,9 @@ GalleryItem.propTypes = {
   // Specifies whether the images should appear small
   small: React.PropTypes.bool,
 
+  // Specifies whether the images should appear medium
+  medium: React.PropTypes.bool,
+
   // Specifies the click action on the image
   onClick: React.PropTypes.func,
 
@@ -83,6 +87,7 @@ GalleryItem.defaultProps = {
   progress: null,
   ribbon: null,
   small: false,
+  medium: false,
   src: null,
 };
 
