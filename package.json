@@ -1,6 +1,6 @@
 {
   "name": "wundery-ui-react",
-  "version": "5.0.26",
+  "version": "5.0.27",
   "description": "React bindings for the Wundery UI framework",
   "main": "./dist/index.js",
   "engines": {
