@@ -80,6 +80,8 @@ class Button extends Component {
       theme,
       tooltip,
       type,
+      hidden,
+      borderRightWidth,
     } = this.props;
     const { dropdownOpen } = this.state;
 
@@ -174,7 +176,15 @@ class Button extends Component {
       </span>
     );
 
-    const style = spacing({ margin });
+    var style = spacing({ margin });
+
+    if (hidden) {
+      style = merge(style, { display: "none" });
+    }
+
+    if (borderRightWidth) {
+      style = merge(style, { "border-right-width": "1px" });
+    }
 
     let link = originalLInk;
     if (link) {
@@ -245,6 +255,8 @@ Button.propTypes = {
   tooltip: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.bool]),
   type: React.PropTypes.string.isRequired,
   value: React.PropTypes.string,
+  hidden: React.PropTypes.bool.isRequired,
+  borderRightWidth: React.PropTypes.bool.isRequired,
 };
 
 Button.defaultProps = {
@@ -257,6 +269,8 @@ Button.defaultProps = {
   small: false,
   theme: 'default',
   type: 'button',
+  hidden: false,
+  borderRightWidth: false,
 };
 
 export default Button;
