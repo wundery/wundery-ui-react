@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import ReactTooltip from 'react-tooltip';
-import { randomString, spacing } from '../../utils';
+import { randomString, spacing, merge } from '../../utils';
 import { Icon } from '../Icon';
 import { Dropdown } from '../Dropdown';
 import { Spinner } from '../Spinner';
