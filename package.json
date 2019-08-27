@@ -1,6 +1,6 @@
 {
   "name": "wundery-ui-react",
-  "version": "5.0.30",
+  "version": "5.0.32",
   "description": "React bindings for the Wundery UI framework",
   "main": "./dist/index.js",
   "engines": {
@@ -35,8 +35,6 @@
     "react-tooltip": "^3.2.2"
   },
   "devDependencies": {
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.17.0",
     "babel-eslint": "^6.1.0",
@@ -54,7 +52,9 @@
     "jest-cli": "^16.0.0",
     "react": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
   },
   "peerDependencies": {
     "react": "^15.3.2",
