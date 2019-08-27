@@ -69,7 +69,6 @@ function Form(props) {
 
       if (ChildType === FormItem) {
         const attributeName = child.props.name;
-        const attributeForceUpdate = child.props.forceUpdate;
         const newChildProps = merge(childProps, {
           onChange: value => onItemValueChanged(attributeName, value),
           errors: getItemErrors(errors, attributeName),
@@ -86,7 +85,7 @@ function Form(props) {
 
         return (
           <FormItem
-            key={attributeForceUpdate ? Date.now() : i}
+            key={i}
             tabIndex={0}
             value={value}
             compact={childCompact}

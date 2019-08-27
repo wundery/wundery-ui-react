@@ -138,8 +138,10 @@ class FormItem extends Component {
   }
 
   renderSelectControl() {
-    const { value, tabIndex, disabled, options, controlRef } = this.props;
+    const { value, tabIndex, disabled, options, controlRef, forceUpdate } = this.props;
     const { onChange } = this;
+
+    const valueProp = forceUpdate ? {value: value} : {} ;
 
     const input = (
       <select
@@ -149,6 +151,7 @@ class FormItem extends Component {
         tabIndex={tabIndex}
         defaultValue={value}
         ref={controlRef}
+        {...valueProp}
       >
         {options.map((option, index) => (
           <option value={option.value} key={index}>
