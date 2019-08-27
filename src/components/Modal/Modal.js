@@ -92,7 +92,7 @@ class Modal extends Component {
 
     // Only trigger onClose when the modal is closable and the click is not performed
     // somewhere inside the modal
-    if (closable && !this.modal.contains(event.target)) {
+    if (closable && !this.modal.contains(event.target) && this.state.open) {
       this.setState({ open: false });
       onClose();
     }
