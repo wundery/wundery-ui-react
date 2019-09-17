@@ -76,7 +76,7 @@ Icon.propTypes = {
   set: React.PropTypes.oneOf([FONTAWESOME4, DEVICONS]).isRequired,
   size: React.PropTypes.oneOf(['default', 'small', 'larger', 'large']),
   spin: React.PropTypes.bool,
-  theme: React.PropTypes.oneOf(['default', 'success']),
+  theme: React.PropTypes.oneOf(['default', 'success', 'store']),
 };
 
 Icon.defaultProps = {
