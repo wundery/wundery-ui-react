@@ -26,7 +26,7 @@ function AppTheme(props) {
     return (
       <div>
         {browseButtonLabel && (<div className="ui-app-add">
-          <Button onClick={onClick}>browseButtonLabel</Button>
+          <Button onClick={onClick}>{browseButtonLabel}</Button>
         </div>)}
       </div>
     );
