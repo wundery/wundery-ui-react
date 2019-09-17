@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 
@@ -66,7 +65,6 @@ AppTheme.propTypes = {
   browseButtonLabel: React.PropTypes.string,
   description: React.PropTypes.string,
   title: React.PropTypes.string,
-  imageSrc: React.PropTypes.string,
   onClick: React.PropTypes.func,
   icon: React.PropTypes.string,
   palette: React.PropTypes.bool,
