@@ -40,9 +40,9 @@ function AppTheme(props) {
 
   return (
     <div className="ui-app" onClick={onClick}>
-        <div className="ui-app-meta">
+        <div className="ui-app-meta ui-app-meta-theme">
 
-          <div className="ui-app-meta-icon">
+          <div className="ui-app-meta-icon ui-app-meta-icon-flex">
             {!palette && (<Icon name={icon} theme={'store'}/>)}
             {palette && renderIconPalette()}
           </div>

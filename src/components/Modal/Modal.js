@@ -21,7 +21,7 @@ class Modal extends Component {
     open: React.PropTypes.bool,
 
     // Defines the possible sizes - will be translated to css classes
-    size: React.PropTypes.oneOf(['default', 'large', 'small']).isRequired,
+    size: React.PropTypes.oneOf(['default', 'large', 'larger', 'small']).isRequired,
   };
 
   /**
