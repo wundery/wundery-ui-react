@@ -184,6 +184,10 @@ class FormValidation {
         error = hasField && value && !String(value).match(/^\d+-\d+$|^\d+$/);
         break;
 
+      case 'isURL':
+          error = hasField && value && !String(value).match(/^(http(s)?:\/\/)?[a-z0-9-]+\.[a-z0-9-]+\.[a-z]{2,10}$/)
+        break;
+
       default:
         throw new Error(`Unknown validation ${JSON.stringify(validation)}`);
     }
