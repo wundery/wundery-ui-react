@@ -44,7 +44,7 @@ function AppTheme(props) {
       <div className="ui-app-meta ui-app-meta-theme">
 
         <div className="ui-app-meta-icon ui-app-meta-icon-flex">
-          {!palette && (<Icon name={icon} theme={'store'} disabled/>)}
+          {!palette && (<Icon name={icon} theme={'store'} disabled={disabled}/>)}
           {palette && renderIconPalette()}
         </div>
 
