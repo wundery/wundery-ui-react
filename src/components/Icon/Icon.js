@@ -25,6 +25,7 @@ function Icon(props) {
     size,
     spin,
     theme,
+    disabled,
   } = props;
 
   const setClasses = [];
@@ -55,6 +56,10 @@ function Icon(props) {
     sizeClasses.push('ui-icon-size-large');
   }
 
+  if (disabled) {
+    sizeClasses.push('ui-icon-disabled');
+  }
+
   const classNames = classnames('ui-icon', `ui-icon-theme-${theme}`, {
     'ui-icon-color-light': light,
     'ui-icon-nomargin': noMargin,
@@ -77,6 +82,7 @@ Icon.propTypes = {
   size: React.PropTypes.oneOf(['default', 'small', 'larger', 'large']),
   spin: React.PropTypes.bool,
   theme: React.PropTypes.oneOf(['default', 'success', 'store']),
+  disabled: React.PropTypes.bool,
 };
 
 Icon.defaultProps = {
@@ -91,6 +97,7 @@ Icon.defaultProps = {
   size: 'default',
   spin: false,
   theme: 'default',
+  disabled: false,
 };
 
 export default tweakable(Icon);

@@ -12,6 +12,7 @@ function AppTheme(props) {
     palette,
     color,
     height,
+    disabled,
   } = props;
 
   const style = {
@@ -40,24 +41,24 @@ function AppTheme(props) {
 
   return (
     <div className="ui-app" onClick={onClick}>
-        <div className="ui-app-meta ui-app-meta-theme">
+      <div className="ui-app-meta ui-app-meta-theme">
 
-          <div className="ui-app-meta-icon ui-app-meta-icon-flex">
-            {!palette && (<Icon name={icon} theme={'store'}/>)}
-            {palette && renderIconPalette()}
-          </div>
+        <div className="ui-app-meta-icon ui-app-meta-icon-flex">
+          {!palette && (<Icon name={icon} theme={'store'} disabled/>)}
+          {palette && renderIconPalette()}
+        </div>
 
-          <div className="ui-app-meta-texts ui-app-meta-texts-margin">
-            {title && <div className="ui-app-title">{title}</div>}
-            {description && <div className="ui-app-description">{description}</div>}
-          </div>
-          <div className="ui-app-actions ui-app-actions-margin">
-            <div className="ui-app-buttons">
-              {renderButtons()}
-            </div>
+        <div className="ui-app-meta-texts ui-app-meta-texts-margin">
+          {title && <div className="ui-app-title">{title}</div>}
+          {description && <div className="ui-app-description">{description}</div>}
+        </div>
+        <div className="ui-app-actions ui-app-actions-margin">
+          <div className="ui-app-buttons">
+            {!disabled && renderButtons()}
           </div>
         </div>
       </div>
+    </div>
   )
 }
 
@@ -70,10 +71,12 @@ AppTheme.propTypes = {
   palette: React.PropTypes.bool,
   height: React.PropTypes.number,
   color: React.PropTypes.string,
+  disabled: React.PropTypes.bool,
 };
 
 AppTheme.defaultProps = {
   palette: false,
+  disabled: false,
 };
 
 export default AppTheme;
