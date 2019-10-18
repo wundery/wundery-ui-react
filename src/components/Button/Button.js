@@ -82,6 +82,7 @@ class Button extends Component {
       type,
       hidden,
       borderRightWidth,
+      smallPadding,
     } = this.props;
     const { dropdownOpen } = this.state;
 
@@ -133,6 +134,7 @@ class Button extends Component {
         'ui-button-state-loading': loading,
         'ui-button-left': left,
         'ui-button-highlight': highlight,
+        'ui-button-size-small-padding': smallPadding,
       },
       originalClassName,
     );
@@ -257,6 +259,7 @@ Button.propTypes = {
   value: React.PropTypes.string,
   hidden: React.PropTypes.bool.isRequired,
   borderRightWidth: React.PropTypes.bool.isRequired,
+  smallPadding: React.PropTypes.bool.isRequired,
 };
 
 Button.defaultProps = {
@@ -271,6 +274,7 @@ Button.defaultProps = {
   type: 'button',
   hidden: false,
   borderRightWidth: false,
+  smallPadding: false,
 };
 
 export default Button;
