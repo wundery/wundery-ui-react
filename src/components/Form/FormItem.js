@@ -48,12 +48,17 @@ class FormItem extends Component {
     }
   }
 
+  isCheckboxDefault() {
+    const { type } = this.props;
+    return type == 'checkbox-default';
+  }
+
   onChange(newValue) {
     const { onChange } = this.props;
     const guardRegex = this.getGuardRegex();
 
     this.setState({ pristine: false });
-    
+
     if (guardRegex) {
       if (String(newValue).match(guardRegex)) {
         onChange(newValue);
@@ -101,19 +106,27 @@ class FormItem extends Component {
 
     if (!label) { return null; }
 
-    return (
-      <div className={classnames('ui-form-label')}>
-        <div className={classnames('ui-form-label-text')}>
+    if (this.isCheckboxDefault()) {
+      return (
+        <div className="ui-form-label-checkbox-default">
           {label}
         </div>
-        {required && (
-          <div className="ui-form-label-required">
-            <Badge theme="info">{requiredText}</Badge>
+      )
+    } else {
+      return (
+        <div className={classnames('ui-form-label')}>
+          <div className={classnames('ui-form-label-text')}>
+            {label}
           </div>
-        )}
-        {labelAddon && <div className="ui-form-label-addon">{labelAddon}</div>}
-      </div>
-    );
+          {required && (
+            <div className="ui-form-label-required">
+              <Badge theme="info">{requiredText}</Badge>
+            </div>
+          )}
+          {labelAddon && <div className="ui-form-label-addon">{labelAddon}</div>}
+        </div>
+      );
+    }
   }
 
   renderTextControl() {
@@ -241,6 +254,7 @@ class FormItem extends Component {
       case 'rte':
         return this.renderTextAreaControl();
 
+      case 'checkbox-default':
       case 'checkbox':
         return this.renderCheckboxControl();
 
@@ -289,25 +303,33 @@ class FormItem extends Component {
       'ui-form-control-group-with-prefix': !!prefix,
     });
 
-    return (
-      <div className={className}>
-        <div className={controlGroupWrapperClassName}>
-          <div className={controlGroupClassName}>
-            {prefix && (<div className={prefixClassName}>{prefix}</div>)}
-            <div className="ui-form-control-wrapper">
-              {this.renderControl()}
-              {spinner && (<div className="ui-form-control-spinner"><Spinner /></div>)}
-            </div>
-            {suffix && (<div className={suffixClassName}>{suffix}</div>)}
-          </div>
-          {dropdown}
-          {innerAddon && (<div className="ui-form-control-group-addon">{innerAddon}</div>)}
+    if (this.isCheckboxDefault()) {
+      return (
+        <div className="ui-form-item-checkbox-default">
+          {this.renderControl()}
         </div>
-        {this.renderErrors()}
-        {description && (<div className="ui-form-input-description">{description}</div>)}
-        {addon && (<div className="ui-form-input-addon">{addon}</div>)}
-      </div>
-    );
+      )
+    }else {
+      return (
+        <div className={className}>
+          <div className={controlGroupWrapperClassName}>
+            <div className={controlGroupClassName}>
+              {prefix && (<div className={prefixClassName}>{prefix}</div>)}
+              <div className={"ui-form-control-wrapper " }>
+                {this.renderControl()}
+                {spinner && (<div className="ui-form-control-spinner"><Spinner /></div>)}
+              </div>
+              {suffix && (<div className={suffixClassName}>{suffix}</div>)}
+            </div>
+            {dropdown}
+            {innerAddon && (<div className="ui-form-control-group-addon">{innerAddon}</div>)}
+          </div>
+          {this.renderErrors()}
+          {description && (<div className="ui-form-input-description">{description}</div>)}
+          {addon && (<div className="ui-form-input-addon">{addon}</div>)}
+        </div>
+      );
+    }
   }
 
   render() {
@@ -316,17 +338,26 @@ class FormItem extends Component {
     const className = classnames(
       'ui-form-item',
       `ui-form-item-type-${type || 'custom'}`, {
-        'ui-form-item-compact': compact,
-        'ui-form-item-inline': inline,
+        'ui-form-item-compact': !this.isCheckboxDefault() && compact,
+        'ui-form-item-inline': !this.isCheckboxDefault() && inline,
       }
     );
 
-    return (
-      <div className={className}>
-        {this.renderLabel()}
-        {this.renderInput()}
-      </div>
-    );
+    if (this.isCheckboxDefault()) {
+      return (
+        <div className={className}>
+          {this.renderInput()}
+          {this.renderLabel()}
+        </div>
+      );
+    } else {
+      return (
+        <div className={className}>
+          {this.renderLabel()}
+          {this.renderInput()}
+        </div>
+      );
+    }
   }
 }
 
