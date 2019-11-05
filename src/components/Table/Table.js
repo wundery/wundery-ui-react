@@ -45,6 +45,9 @@ class Table extends Component {
     // Specifies if the table is in loading mode
     loading: React.PropTypes.bool,
 
+    // Enable scroll-x when table so long
+    responsive: React.PropTypes.bool,
+
     onPageSizeChange: React.PropTypes.func,
     onPaginate: React.PropTypes.func,
     page: React.PropTypes.oneOfType([
@@ -570,13 +573,14 @@ class Table extends Component {
   }
 
   render() {
-    const { loading, embedded, margin } = this.props;
+    const { loading, embedded, margin, responsive } = this.props;
 
     const columns = this.renderColumns();
     const style = spacingStyles({ margin });
     const tableClassName = classnames('ui-table-wrapper', {
       'ui-table-loading': loading,
       'ui-table-embedded': embedded,
+      'ui-table-responsive': responsive
     });
 
     return (
