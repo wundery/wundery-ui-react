@@ -79,6 +79,7 @@ const TableRow = (props) => {
       right,
       title,
       width,
+      customClass
     } = column.props;
 
     return (
@@ -101,6 +102,7 @@ const TableRow = (props) => {
         onUpdateDatum={onUpdateDatum}
         onValidate={onValidate}
         cancelLabel={cancelLabel}
+        customClass={customClass || ''}
       />
     );
   }) : children;

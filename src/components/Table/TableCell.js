@@ -190,6 +190,7 @@ class TableCell extends Component {
       onEdit,
       orderHandle,
       right,
+      customClass,
     } = this.props;
     const { editing } = this.state;
 
@@ -201,7 +202,7 @@ class TableCell extends Component {
       'ui-table-cell-expander': expander,
       'ui-table-cell-order-handle': orderHandle,
       'ui-table-cell-right': right,
-    });
+    }, customClass);
   }
 
   renderStyles() {

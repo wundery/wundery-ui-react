@@ -16,6 +16,7 @@ TableColumn.propTypes = {
   expander: React.PropTypes.bool,
   title: React.PropTypes.node,
   width: React.PropTypes.number,
+  customClass: React.PropTypes.string,
 
   /**
    * If specified, makes the cells in this column inline editable. This callback is called
