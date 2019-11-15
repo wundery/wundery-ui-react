@@ -131,7 +131,7 @@ class FormItem extends Component {
 
   renderTextControl() {
     const { onChange } = this;
-    const { type, value, defaultValue, tabIndex, placeholder, disabled, controlRef } = this.props;
+    const { type, value, defaultValue, tabIndex, placeholder, disabled, controlRef, hide } = this.props;
 
     const input = (
       <input
@@ -141,7 +141,7 @@ class FormItem extends Component {
         defaultValue={defaultValue}
         tabIndex={tabIndex}
         placeholder={placeholder}
-        disabled={disabled}
+        disabled={disabled || hide}
         ref={controlRef}
         className="ui-form-control"
       />
@@ -401,6 +401,8 @@ FormItem.propTypes = {
 
   // A ref which is applied to the specific control element (e.g for focus)
   controlRef: React.PropTypes.func,
+
+  hide: React.PropTypes.func,
 };
 
 FormItem.defaultProps = {
@@ -411,6 +413,7 @@ FormItem.defaultProps = {
   onChange: () => {},
   options: [],
   requiredText: '*',
+  hide: false,
 };
 
 export default FormItem;
