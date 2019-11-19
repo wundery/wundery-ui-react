@@ -402,7 +402,7 @@ FormItem.propTypes = {
   // A ref which is applied to the specific control element (e.g for focus)
   controlRef: React.PropTypes.func,
 
-  hide: React.PropTypes.func,
+  hide: React.PropTypes.bool,
 };
 
 FormItem.defaultProps = {
