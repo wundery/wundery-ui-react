@@ -73,7 +73,7 @@ function Form(props) {
           onChange: value => onItemValueChanged(attributeName, value),
           errors: getItemErrors(errors, attributeName),
           pristine,
-          disabled,
+          disabled: childProps.disabled || disabled,
           requiredText,
           inline,
         });
