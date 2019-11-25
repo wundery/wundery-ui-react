@@ -102,7 +102,7 @@ class FormItem extends Component {
   }
 
   renderLabel() {
-    const { label, required, requiredText, labelAddon } = this.props;
+    const { label, required, requiredText, labelAddon, labelNote } = this.props;
 
     if (!label) { return null; }
 
@@ -117,6 +117,10 @@ class FormItem extends Component {
         <div className={classnames('ui-form-label')}>
           <div className={classnames('ui-form-label-text')}>
             {label}
+            {labelNote && <div classNames={classnames('ui-form-label-note')}>
+                {labelNote}
+              </div>
+            }
           </div>
           {required && (
             <div className="ui-form-label-required">
@@ -406,6 +410,8 @@ FormItem.propTypes = {
   hide: React.PropTypes.bool,
 
   width: React.PropTypes.oneOf(['short', 'normal', 'full']),
+
+  labelNote: React.PropTypes.string,
 };
 
 FormItem.defaultProps = {
