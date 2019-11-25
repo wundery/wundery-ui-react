@@ -117,7 +117,7 @@ class FormItem extends Component {
         <div className={classnames('ui-form-label')}>
           <div className={classnames('ui-form-label-text')}>
             {label}
-            {labelNote && <div classNames={classnames('ui-form-label-note')}>
+            {labelNote && <div className={classnames('ui-form-label-note')}>
                 {labelNote}
               </div>
             }
