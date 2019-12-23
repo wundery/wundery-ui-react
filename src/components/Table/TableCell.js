@@ -198,7 +198,7 @@ class TableCell extends Component {
     const { editing } = this.state;
 
     if(breakCell) {
-      classnames('ui-table-cell-break', {}, customClass);
+      return classnames('ui-table-cell-break', {}, customClass);
     }
     else {
       return classnames('ui-table-cell', {
