@@ -27,6 +27,7 @@ class TableCell extends Component {
     onUpdateDatum: React.PropTypes.func,
     onValidate: React.PropTypes.func,
     cancelLabel: React.PropTypes.string,
+    breakCell: React.PropTypes.bool
   };
 
   static defaultProps = {
@@ -38,6 +39,7 @@ class TableCell extends Component {
     onUpdateDatum: null,
     onValidate: null,
     cancelLabel: null,
+    breakCell: false,
   };
 
   constructor(props) {
@@ -191,18 +193,24 @@ class TableCell extends Component {
       orderHandle,
       right,
       customClass,
+      breakCell,
     } = this.props;
     const { editing } = this.state;
 
-    return classnames('ui-table-cell', {
-      'ui-table-cell-bold': bold,
-      'ui-table-cell-center': center,
-      'ui-table-cell-editable': onEdit,
-      'ui-table-cell-editing': editing,
-      'ui-table-cell-expander': expander,
-      'ui-table-cell-order-handle': orderHandle,
-      'ui-table-cell-right': right,
-    }, customClass);
+    if(breakCell) {
+      classnames('ui-table-cell-break', {}, customClass);
+    }
+    else {
+      return classnames('ui-table-cell', {
+        'ui-table-cell-bold': bold,
+        'ui-table-cell-center': center,
+        'ui-table-cell-editable': onEdit,
+        'ui-table-cell-editing': editing,
+        'ui-table-cell-expander': expander,
+        'ui-table-cell-order-handle': orderHandle,
+        'ui-table-cell-right': right,
+      }, customClass);
+    }
   }
 
   renderStyles() {

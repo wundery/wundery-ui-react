@@ -79,7 +79,8 @@ const TableRow = (props) => {
       right,
       title,
       width,
-      customClass
+      customClass,
+      breakCell,
     } = column.props;
 
     return (
@@ -103,6 +104,7 @@ const TableRow = (props) => {
         onValidate={onValidate}
         cancelLabel={cancelLabel}
         customClass={customClass || ''}
+        breakCell={breakCell}
       />
     );
   }) : children;

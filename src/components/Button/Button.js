@@ -82,6 +82,7 @@ class Button extends Component {
       type,
       hidden,
       borderRightWidth,
+      notify,
       smallPadding,
     } = this.props;
     const { dropdownOpen } = this.state;
@@ -214,6 +215,9 @@ class Button extends Component {
             {tooltip}
           </ReactTooltip>
         )}
+        {notify &&
+          <span className="ui-notify">{notify}</span>
+        }
       </button>
     );
 
@@ -260,6 +264,7 @@ Button.propTypes = {
   hidden: React.PropTypes.bool.isRequired,
   borderRightWidth: React.PropTypes.bool.isRequired,
   smallPadding: React.PropTypes.bool.isRequired,
+  notify: React.PropTypes.string
 };
 
 Button.defaultProps = {
