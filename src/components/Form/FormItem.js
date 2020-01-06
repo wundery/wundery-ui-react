@@ -172,7 +172,7 @@ class FormItem extends Component {
         {...valueProp}
       >
         {options.map((option, index) => (
-          <option value={option.value} key={index}>
+          <option value={option.value} key={index} disabled={option.disabled}>
             {option.label}
           </option>
         ))}
@@ -384,6 +384,7 @@ FormItem.propTypes = {
   options: React.PropTypes.arrayOf(React.PropTypes.shape({
     label: React.PropTypes.string.isRequired,
     value: React.PropTypes.string,
+    disabled: React.PropTypes.bool
   })),
   placeholder: React.PropTypes.string,
   prefix: React.PropTypes.node,
