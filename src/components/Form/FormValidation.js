@@ -185,7 +185,7 @@ class FormValidation {
         break;
 
       case 'isURL':
-          error = hasField && value && !String(value).match(/^(https?:\/\/)?(([a-z\d]([a-z\d-]*[a-z\\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3})/)
+          error = hasField && value && !String(value).match(/^(https?:\/\/)?((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))/)
         break;
 
       default:
