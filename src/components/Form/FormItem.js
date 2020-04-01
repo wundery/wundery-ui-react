@@ -135,14 +135,15 @@ class FormItem extends Component {
 
   renderTextControl() {
     const { onChange } = this;
-    const { type, value, defaultValue, tabIndex, placeholder, disabled, controlRef, hide, width } = this.props;
-    const classNames = classnames('ui-form-control', `ui-form-input-width-${width}`)
+    const { type, value, defaultValue, tabIndex, placeholder, disabled, controlRef, hide, width, allowShowZero } = this.props;
+    const classNames = classnames('ui-form-control', `ui-form-input-width-${width}`);
+    const valueInput = allowShowZero ? value : (value || "");
 
     const input = (
       <input
         type={type}
         onChange={event => onChange(event.target.value)}
-        value={value || ''}
+        value={valueInput}
         defaultValue={defaultValue}
         tabIndex={tabIndex}
         placeholder={placeholder}
@@ -413,6 +414,8 @@ FormItem.propTypes = {
   width: React.PropTypes.oneOf(['short', 'normal', 'full']),
 
   labelNote: React.PropTypes.string,
+  
+  allowShowZero: React.PropTypes.bool
 };
 
 FormItem.defaultProps = {
@@ -425,6 +428,7 @@ FormItem.defaultProps = {
   requiredText: '*',
   hide: false,
   width: 'full',
+  allowShowZero: false
 };
 
 export default FormItem;
