@@ -31,18 +31,6 @@ function Text(props) {
     'ui-text-large': large,
   });
 
-  if (left) {
-    classNames.push('ui-align-left');
-  }
-
-  if (right) {
-    classNames.push('ui-align-right');
-  }
-
-  if (italic) {
-    classNames.push('ui-text-font-italic')
-  }
-
   return block
     ? <div className={classNames} style={style}>{children}</div>
     : <span className={classNames} style={style}>{children}</span>;
