@@ -13,6 +13,10 @@ function Text(props) {
     padding,
     small,
     theme,
+    left,
+    right,
+    italic,
+    large
   } = props;
 
   const style = spacingStyles({ margin, padding });
@@ -21,7 +25,23 @@ function Text(props) {
     'ui-text-bold': bold,
     'ui-text-small': small,
     'ui-align-center': center,
+    'ui-align-left': left,
+    'ui-align-right': right,
+    'ui-text-font-italic': italic,
+    'ui-text-large': large,
   });
+
+  if (left) {
+    classNames.push('ui-align-left');
+  }
+
+  if (right) {
+    classNames.push('ui-align-right');
+  }
+
+  if (italic) {
+    classNames.push('ui-text-font-italic')
+  }
 
   return block
     ? <div className={classNames} style={style}>{children}</div>
@@ -38,6 +58,10 @@ Text.propTypes = {
   small: React.PropTypes.bool,
   center: React.PropTypes.bool,
   theme: React.PropTypes.oneOf(['default', 'success', 'light']),
+  left: React.PropTypes.bool,
+  right: React.PropTypes.bool,
+  italic: React.PropTypes.bool,
+  large: React.PropTypes.bool,
 };
 
 Text.defaultProps = {

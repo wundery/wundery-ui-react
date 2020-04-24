@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 const GridCol = (props) => {
   const classes = [];
-  const { center } = props;
+  const { center, right, left } = props;
 
   if (props.borders) {
     if (props.borders.match(/l/)) {
@@ -36,6 +36,14 @@ const GridCol = (props) => {
     classes.push('col-align-center');
   }
 
+  if (right) {
+    classes.push('col-align-right');
+  }
+
+  if (left) {
+    classes.push('col-align-left');
+  }
+
   return (
     <div className={classnames(classes)}>
       {props.children}
@@ -63,6 +71,8 @@ GridCol.propTypes = {
    * @type {Boolean}
    */
   center: React.PropTypes.bool,
+  left: React.PropTypes.bool,
+  right: React.PropTypes.bool,
 };
 
 GridCol.defaultProps = {
