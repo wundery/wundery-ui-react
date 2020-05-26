@@ -131,7 +131,7 @@ class FormValidation {
       case 'domainWithSubdomain':
         error = hasField
           && value
-          && !String(value).match(/^[a-z0-9-]+\.[a-z0-9-]+\.[a-z]{2,10}$/);
+          && !String(value).match(/^([a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?\.)+[a-z]{2,10}$/);
         break;
 
       case 'regex':
