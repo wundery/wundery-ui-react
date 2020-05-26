@@ -1,9 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
 
-function InlineList({ block, children }) {
+function InlineList({ block, children, center }) {
   const className = classnames('ui-inline-list', {
     'ui-inline-list-block': block,
+    'ui-inline-list-center': center,
   });
 
   return (
@@ -20,10 +21,12 @@ function InlineList({ block, children }) {
 InlineList.propTypes = {
   children: React.PropTypes.node,
   block: React.PropTypes.bool,
+  center: React.PropTypes.bool
 };
 
 InlineList.defaulProps = {
   block: false,
+  center: false
 };
 
 export default InlineList;

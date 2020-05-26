@@ -8,7 +8,7 @@ function filterListItems(item) {
 }
 
 function FormOptionList(props) {
-  const { children, name, onChange, value, multiple, title, embedded, omitOnClick } = props;
+  const { children, name, onChange, value, multiple, title, embedded, omitOnClick, inline, className } = props;
 
   const itemOnChange = (data) => {
     if (multiple) {
@@ -19,7 +19,7 @@ function FormOptionList(props) {
   };
 
   return (
-    <List title={title} embedded={embedded}>
+    <List title={title} embedded={embedded} inline={inline} className={className}>
       {[].concat(children).filter(filterListItems).map((child, index) => {
         const defaultChecked = multiple
           ? get(value, child.props.value) === true
@@ -52,6 +52,8 @@ FormOptionList.propTypes = {
   multiple: React.PropTypes.bool,
   embedded: React.PropTypes.bool,
   omitOnClick: React.PropTypes.bool,
+  inline: React.PropTypes.bool,
+  className: React.PropTypes.string
 };
 
 export default FormOptionList;
