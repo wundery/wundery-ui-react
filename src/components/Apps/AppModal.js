@@ -6,7 +6,7 @@ import { Media, MediaIcon, MediaContent } from '../Media';
 import { Modal, ModalContent, ModalHeader } from '../Modal';
 import { Text } from '../Text';
 
-function AppModal({ title, description, children, open, onClose, iconSrc, closeLabel }) {
+function AppModal({ title, description, children, open, onClose, iconSrc, closeLabel, actions }) {
   return (
     <Modal open={open} onClose={onClose}>
       <ModalHeader>
@@ -24,6 +24,7 @@ function AppModal({ title, description, children, open, onClose, iconSrc, closeL
             <AppIcon src={iconSrc} />
           </MediaIcon>
         </Media>
+        {actions}
       </ModalHeader>
       <ModalContent>
         {children}
@@ -40,6 +41,7 @@ AppModal.propTypes = {
   onClose: React.PropTypes.func.isRequired,
   open: React.PropTypes.bool,
   title: React.PropTypes.string,
+  actions: React.PropTypes.any
 };
 
 AppModal.defaultProps = {
