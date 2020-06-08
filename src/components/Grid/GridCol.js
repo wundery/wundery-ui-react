@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 const GridCol = (props) => {
   const classes = [];
-  const { center, right, left } = props;
+  const { center, right, left, flex, marginAuto, bottom } = props;
 
   if (props.borders) {
     if (props.borders.match(/l/)) {
@@ -44,6 +44,18 @@ const GridCol = (props) => {
     classes.push('col-align-left');
   }
 
+  if (flex) {
+    classes.push('ui-flex-gird');
+  }
+
+  if (marginAuto) {
+    classes.push('ui-margin-auto-gird');
+  }
+
+  if (bottom) {
+    classes.push('ui-flex-end-gird');
+  }
+
   return (
     <div className={classnames(classes)}>
       {props.children}
@@ -73,6 +85,9 @@ GridCol.propTypes = {
   center: React.PropTypes.bool,
   left: React.PropTypes.bool,
   right: React.PropTypes.bool,
+  flex: React.PropTypes.bool,
+  marginAuto: React.PropTypes.bool,
+  bottom: React.PropTypes.bool
 };
 
 GridCol.defaultProps = {

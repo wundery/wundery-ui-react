@@ -8,9 +8,17 @@ import { spaceable } from '../../decorators';
 
 const GridRow = (props) => {
   const children = props.children;
+  const { flex } = props;
+  const classes = [];
+
+  classes.push('row');
+
+  if (flex) {
+    classes.push('ui-flex-gird')
+  }
 
   return (
-    <div className={classnames('row')}>
+    <div className={classnames(classes)}>
       {children}
     </div>
   );
@@ -18,6 +26,7 @@ const GridRow = (props) => {
 
 GridRow.propTypes = {
   children: React.PropTypes.node,
+  flex: React.PropTypes.bool,
 };
 
 export default spaceable(GridRow);

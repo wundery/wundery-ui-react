@@ -8,6 +8,7 @@ const Spacing = (props) => {
   const children = props.children;
   const margin = props.margin;
   const padding = props.padding;
+  const marginAuto = props.marginAuto;
   let styles = {};
 
   if (margin) {
@@ -23,6 +24,7 @@ const Spacing = (props) => {
       style={styles}
       className={classnames({
         'ui-helpers-flexbox': props.flexbox,
+        'ui-margin-auto-gird': props.marginAuto,
       })}
     >
       {children}
@@ -44,6 +46,7 @@ Spacing.propTypes = {
   margin: validator,
   children: React.PropTypes.node,
   flexbox: React.PropTypes.bool,
+  marginAuto: React.PropTypes.bool,
 };
 
 export default alignable(Spacing);
