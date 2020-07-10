@@ -73,7 +73,7 @@ class FormItem extends Component {
 
     switch (guard) {
       case 'decimal':
-        return /^$|^-?[0-9]+\.?([0-9]*)+$/;
+        return /^$|^-?[0-9]+[.,]?([0-9]*)+$/;
 
       case 'number':
         return /^-?[0-9]*$/;
