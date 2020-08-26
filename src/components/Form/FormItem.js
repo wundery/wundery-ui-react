@@ -102,13 +102,14 @@ class FormItem extends Component {
   }
 
   renderLabel() {
-    const { label, required, requiredText, labelAddon, labelNote } = this.props;
+    const { label, required, requiredText, labelAddon, labelNote, bold } = this.props;
 
     if (!label) { return null; }
 
     if (this.isCheckboxDefault()) {
+      const classNameLabel =  classnames("ui-form-label-checkbox-default", { 'ui-form-label-bold': bold })
       return (
-        <div className="ui-form-label-checkbox-default">
+        <div className={classNameLabel}>
           {label}
         </div>
       )
@@ -282,6 +283,7 @@ class FormItem extends Component {
       prefix,
       spinner,
       suffix,
+      right
     } = this.props;
     const { showErrors } = this.state;
 
@@ -310,8 +312,9 @@ class FormItem extends Component {
     });
 
     if (this.isCheckboxDefault()) {
+      const classNameCheckbox =  classnames('ui-form-item-checkbox-default', { 'ui-form-input-checkbox-default-right': right })
       return (
-        <div className="ui-form-item-checkbox-default">
+        <div className={classNameCheckbox}>
           {this.renderControl()}
         </div>
       )
@@ -339,7 +342,7 @@ class FormItem extends Component {
   }
 
   render() {
-    const { compact, type, inline } = this.props;
+    const { compact, type, inline, right } = this.props;
 
     const className = classnames(
       'ui-form-item',
@@ -352,8 +355,9 @@ class FormItem extends Component {
     if (this.isCheckboxDefault()) {
       return (
         <div className={className}>
-          {this.renderInput()}
+          {!right && this.renderInput()}
           {this.renderLabel()}
+          {right && this.renderInput()}
         </div>
       );
     } else {
@@ -414,8 +418,12 @@ FormItem.propTypes = {
   width: React.PropTypes.oneOf(['short', 'normal', 'full']),
 
   labelNote: React.PropTypes.string,
-  
-  allowShowZero: React.PropTypes.bool
+
+  allowShowZero: React.PropTypes.bool,
+
+  right: React.PropTypes.bool,
+
+  bold: React.PropTypes.bool,
 };
 
 FormItem.defaultProps = {
@@ -428,7 +436,9 @@ FormItem.defaultProps = {
   requiredText: '*',
   hide: false,
   width: 'full',
-  allowShowZero: false
+  allowShowZero: false,
+  right: false,
+  bold: false
 };
 
 export default FormItem;

@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { spacingStyles } from '../Spacing/utils';
 
 function BoxContent(props) {
   const {
@@ -8,6 +9,7 @@ function BoxContent(props) {
     noPadding,
     theme,
     transparent,
+    padding
   } = props;
 
   const className = classnames('ui-box-content', `ui-box-content-theme-${theme}`, {
@@ -16,8 +18,10 @@ function BoxContent(props) {
     'ui-box-content-border-bottom': borderBottom,
   });
 
+  const style = spacingStyles({ padding });
+
   return (
-    <div className={className}>
+    <div className={className} style={style}>
       {children}
     </div>
   );
@@ -29,6 +33,7 @@ BoxContent.propTypes = {
   noPadding: React.PropTypes.bool,
   theme: React.PropTypes.oneOf(['default', 'shade']).isRequired,
   transparent: React.PropTypes.bool,
+  padding: React.PropTypes.string,
 };
 
 BoxContent.defaultProps = {
