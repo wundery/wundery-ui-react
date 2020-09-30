@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { Text } from '../Text';
+import { toUpper, isEmpty } from 'lodash';
 
 const Address = (props) => {
   const lines = [];
@@ -8,6 +9,7 @@ const Address = (props) => {
   const locationDetails = [];
   const countryDetails = [];
   const contactDetails = [];
+  const fullCountryDetail = isEmpty(props.state) ? [props.zip, props.city] : [props.zip, `${props.city}, ${props.state}`];
 
   if (props.company) {
     primaryDetails.push(
@@ -44,7 +46,7 @@ const Address = (props) => {
   if (props.zip || props.city) {
     locationDetails.push(
       <span className="ui-address-element ui-address-city" key="city">
-        {[props.zip, props.city].join(' ')}
+        {fullCountryDetail.join(' ')}
       </span>
     );
   }
