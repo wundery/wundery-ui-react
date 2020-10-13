@@ -20,6 +20,8 @@ function App(props) {
     priceLabel,
     title,
     buttons,
+    inactivePending,
+    inactivePendingLabel
   } = props;
 
   const className = classnames('ui-app', {
@@ -51,6 +53,10 @@ function App(props) {
 
   function renderActiveLabel() {
     return active && <div className="ui-app-active-indicator">{activeLabel}</div>;
+  }
+
+  function renderInactivePendingLabel() {
+    return inactivePending && <div className="ui-app-inactive-pending-indicator">{inactivePendingLabel}</div>;
   }
 
   function renderButtons() {
@@ -92,6 +98,7 @@ function App(props) {
           </div>
           <div className="ui-app-info">
             {renderActiveLabel()}
+            {renderInactivePendingLabel()}
             {renderPrice()}
           </div>
         </div>
